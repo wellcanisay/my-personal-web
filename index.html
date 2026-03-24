@@ -98,9 +98,7 @@
         .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
         .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
 
-        /* ========================================= */
-        /* 斯维诗板块 - 还原原本 UI 设计 (Bug 1) */
-        /* ========================================= */
+        /* 斯维诗板块 - PC端横竖图逻辑 */
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
             display: flex; gap: 30px; width: 100%; padding-bottom: 20px;
@@ -108,29 +106,19 @@
             -webkit-overflow-scrolling: touch; 
         }
         .swisse-card { flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; scroll-snap-align: start; }
-        /* 还原原始高度与比例逻辑 */
         .swisse-card-landscape { width: calc(45vh * 16 / 9); }
         .swisse-card-portrait { width: calc(45vh * 3 / 4); }
-
-        .swisse-card-img {
-            width: 100%; height: 45vh; border-radius: 20px; overflow: hidden;
-            position: relative; background: #111;
-        }
+        .swisse-card-img { width: 100%; height: 45vh; border-radius: 20px; overflow: hidden; position: relative; background: #111; }
         .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
         .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; text-align: justify; }
 
-        /* ========================================= */
-        /* 灯箱 - 修复居中问题 (Bug 3) */
-        /* ========================================= */
+        /* 灯箱居中 */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
             z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
         }
         .lightbox-overlay.active { display: flex; opacity: 1; }
-        .lightbox-content { 
-            position: relative; width: 100%; height: 100%; 
-            display: flex; align-items: center; justify-content: center; /* 核心：强制居中 */
-        }
+        .lightbox-content { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
         .lb-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; background: none; border: none; cursor: pointer; z-index: 10010; }
         .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10010; }
         .lb-nav.prev { left: 15px; }
@@ -141,22 +129,33 @@
         .lazy-img.loaded { filter: blur(0); }
 
         /* ========================================= */
-        /* 移动端绝对优化 (包含自适应修复) */
+        /* 移动端绝对优化 (修复首页挤压 & 文字不一) */
         /* ========================================= */
         @media (max-width: 1024px) {
-            section { min-height: auto; padding: 60px 6% 30px; }
+            section { min-height: auto; padding: 80px 6% 60px; }
+            
+            /* 解决 Bug 1: 首页底部加空隙，防止与第二页挤在一起 */
+            .hero { margin-bottom: 80px; padding-bottom: 40px; }
+
             .content-grid { display: flex; flex-direction: column; gap: 20px; }
-            .content-grid.img-left { flex-direction: column-reverse; } /* 农夫山泉自适应修复 */
+            .content-grid.img-left { flex-direction: column-reverse; }
             
             .brand-h { font-size: 22px; margin-bottom: 8px; }
             .sub-h { font-size: 14px; margin-bottom: 10px; }
             ul li { margin-bottom: 5px; }
             .carousel-container { height: 45vh; }
             
-            /* 移动端斯维诗卡片高度微调 */
+            /* 斯维诗移动端适配 */
             .swisse-card-landscape { width: calc(40vh * 16 / 9); }
             .swisse-card-portrait { width: calc(40vh * 3 / 4); }
             .swisse-card-img { height: 40vh; }
+
+            /* 解决 Bug 2: 统一移动端斯维诗文字大小 */
+            .swisse-card-text { 
+                font-size: 13px !important; 
+                line-height: 1.6; 
+                padding: 0 5px;
+            }
 
             .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; }
             .view-detail-btn { padding: 6px 15px; font-size: 11px; }
