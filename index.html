@@ -69,7 +69,7 @@
         .tag-line { color: var(--accent-yellow); font-size: 12px; font-weight: bold; margin-bottom: 8px; }
         .brand-h { font-size: clamp(20px, 2.5vw, 32px); font-weight: 800; margin-bottom: 12px; }
         .sub-h { font-size: 15px; font-weight: 600; margin-bottom: 15px; display: block; }
-        ul li { position: relative; padding-left: 18px; margin-bottom: 8px; font-size: 13px; color: var(--text-gray); text-align: justify; list-style: none; }
+        ul li { position: relative; padding-left: 18px; margin-bottom: 8px; font-size: 13px; color: var(--text-gray); text-align: justify; list-style: none; line-height: 1.4; }
         ul li::before { content: "•"; position: absolute; left: 0; color: var(--highlight-orange); font-weight: bold; }
         .footer-text { font-size: 12px; color: var(--text-gray); border-top: 1px solid #222; padding-top: 12px; line-height: 1.4; }
 
@@ -125,12 +125,32 @@
         .lazy-img { filter: blur(10px); transition: filter 0.5s; }
         .lazy-img.loaded { filter: blur(0); }
 
+        /* ========================================= */
+        /* 移动端绝对优化（解决 Bug 1, 2, 3） */
+        /* ========================================= */
         @media (max-width: 1024px) {
-            .content-grid { grid-template-columns: 1fr; gap: 30px; }
-            .carousel-container { height: 50vh; }
-            section { height: auto; padding: 100px 6% 60px; }
-            .brand-h { font-size: 24px; }
+            /* 解决 Bug 3: 压缩间距，一屏看更多 */
+            section { 
+                min-height: auto; 
+                padding: 60px 6% 30px; /* 减小上下 padding */
+            }
+            .content-grid { 
+                display: flex; 
+                flex-direction: column; 
+                gap: 20px; /* 减小文字与图的间距 */
+            }
+            /* 解决 Bug 1: 农夫山泉及类似布局在手机上强制堆叠，文字在上图在下 */
+            .content-grid.img-left { 
+                flex-direction: column-reverse; 
+            }
+            
+            .brand-h { font-size: 22px; margin-bottom: 8px; }
+            .sub-h { font-size: 14px; margin-bottom: 10px; }
+            ul li { margin-bottom: 5px; }
+            .carousel-container { height: 45vh; }
+            
             .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; }
+            .view-detail-btn { padding: 6px 15px; font-size: 11px; }
         }
     </style>
 </head>
@@ -166,6 +186,7 @@
                     <li>主导行业首款“免洗护发素”从0到1上市策划，面对消费者0认知的市场空白，制定“专业信任 x 场景种草”整合策略，助推新品京东搜索增长 200%，天猫搜索增长 166%</li>
                     <li>推出「会说话的护发素」，搭建首个闭眼也能看的变美平台，并吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
                 </ul>
+                <p class="footer-text">负责海飞丝头皮健康白皮书传播、吉列新品上市&明星直播、宝洁洗发品类商超国风 CNY 营销。从深挖洞察，到专业化背书、social、线下渠道全链路营销覆盖</p>
             </div>
             <div class="carousel-container" data-gallery="pg">
                 <div class="carousel-slides">
@@ -216,7 +237,7 @@
                 <h2 class="brand-h">合生元 <span style="color:var(--highlight-orange)">品牌年轻化和综艺IP营销</span></h2>
                 <ul>
                     <li>为品牌焕新「妈妈少担心」主体性表达，策划综艺《披荆斩棘哥哥》《乘风破浪姐姐》植入营销，相关视频播放量高达 2.1 亿，全网总曝光 7.4 亿</li>
-                    <li>策划每月“销冠组合”活动，以品牌理念 x 亲子体验双赋能渠道转化</li>
+                    <li>针对核心母婴店，策划每月“奶粉+营养品”销冠组合活动，以品牌理念 x 亲子体验双赋能渠道转化</li>
                 </ul>
             </div>
             <div class="carousel-container" data-gallery="biostime">
@@ -261,7 +282,7 @@
         gsap.registerPlugin(ScrollTrigger);
         gsap.utils.toArray('section').forEach(sec => {
             gsap.from(sec.querySelectorAll('.project-text, .carousel-container, .swisse-wrapper'), {
-                scrollTrigger: { trigger: sec, start: "top 80%" },
+                scrollTrigger: { trigger: sec, start: "top 85%" },
                 y: 30, opacity: 0, duration: 0.8, stagger: 0.1
             });
         });
@@ -314,7 +335,7 @@
             let currentImgs = []; let currentIdx = 0;
             const openLb = (galleryId, startSrc) => {
                 const container = document.querySelector(`[data-gallery="${galleryId}"]`);
-                currentImgs = Array.from(container.querySelectorAll('.lazy-img')).map(i => i.getAttribute('data-src'));
+                currentImgs = Array.from(container.querySelectorAll('.lazy-img')).map(i => i.getAttribute('data-src') || i.src);
                 currentIdx = currentImgs.indexOf(startSrc);
                 lbImg.src = currentImgs[currentIdx];
                 lb.classList.add('active');
@@ -324,8 +345,8 @@
                 btn.onclick = (e) => {
                     e.stopPropagation();
                     const con = btn.closest('[data-gallery]');
-                    const img = btn.closest('.carousel-slide, .swisse-card').querySelector('.lazy-img');
-                    openLb(con.dataset.gallery, img.getAttribute('data-src'));
+                    const img = btn.closest('.carousel-slide, .swisse-card').querySelector('img');
+                    openLb(con.dataset.gallery, img.getAttribute('data-src') || img.src);
                 };
             });
             const show = (dir) => {
@@ -344,8 +365,22 @@
             });
         }
 
+        function addWatermark() {
+            const c = document.createElement('canvas');
+            c.width = 250; c.height = 150;
+            const ctx = c.getContext('2d');
+            ctx.fillStyle = 'rgba(255,255,255,0.05)';
+            ctx.font = '14px sans-serif';
+            ctx.rotate(-20*Math.PI/180);
+            ctx.fillText('Sukie作品，严禁外传', 20, 80);
+            const div = document.createElement('div');
+            div.style = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;background:url('+c.toDataURL()+')';
+            document.body.appendChild(div);
+        }
+
         window.onload = () => {
             initLazyLoad(); initCarousels(); initGalleryLightbox();
+            addWatermark();
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
