@@ -98,7 +98,7 @@
         .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
         .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
 
-        /* 斯维诗板块 - PC端横竖图逻辑 */
+        /* 斯维诗板块 - PC端横竖图比例还原 */
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
             display: flex; gap: 30px; width: 100%; padding-bottom: 20px;
@@ -112,7 +112,7 @@
         .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
         .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; text-align: justify; }
 
-        /* 灯箱居中 */
+        /* 灯箱居中修复 */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
             z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
@@ -129,28 +129,27 @@
         .lazy-img.loaded { filter: blur(0); }
 
         /* ========================================= */
-        /* 移动端绝对优化 (修复首页挤压 & 文字不一) */
+        /* 移动端自适应优化 */
         /* ========================================= */
         @media (max-width: 1024px) {
             section { min-height: auto; padding: 80px 6% 60px; }
             
-            /* 解决 Bug 1: 首页底部加空隙，防止与第二页挤在一起 */
+            /* 首页底部留白，防止挤压 */
             .hero { margin-bottom: 80px; padding-bottom: 40px; }
 
             .content-grid { display: flex; flex-direction: column; gap: 20px; }
-            .content-grid.img-left { flex-direction: column-reverse; }
+            .content-grid.img-left { flex-direction: column-reverse; } /* 农夫山泉反转 */
             
             .brand-h { font-size: 22px; margin-bottom: 8px; }
             .sub-h { font-size: 14px; margin-bottom: 10px; }
             ul li { margin-bottom: 5px; }
             .carousel-container { height: 45vh; }
             
-            /* 斯维诗移动端适配 */
             .swisse-card-landscape { width: calc(40vh * 16 / 9); }
             .swisse-card-portrait { width: calc(40vh * 3 / 4); }
             .swisse-card-img { height: 40vh; }
 
-            /* 解决 Bug 2: 统一移动端斯维诗文字大小 */
+            /* 斯维诗移动端文字统一大小 */
             .swisse-card-text { 
                 font-size: 13px !important; 
                 line-height: 1.6; 
@@ -187,7 +186,6 @@
     <section>
         <div class="content-grid">
             <div class="project-text">
-                <p class="tag-line">蓝色光标 (BlueFocus) | 2014-2024</p>
                 <h2 class="brand-h">宝洁 品牌长期创策服务 2018 - 2022</h2>
                 <span class="sub-h">飘柔 从30周年庆到爆品上市、公益传播，突破品类消费圈层，探索美的平权</span>
                 <ul>
