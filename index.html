@@ -98,24 +98,39 @@
         .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
         .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
 
+        /* ========================================= */
+        /* 斯维诗板块 - 还原原本 UI 设计 (Bug 1) */
+        /* ========================================= */
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
-            display: flex; gap: 20px; width: 100%; padding-bottom: 20px;
+            display: flex; gap: 30px; width: 100%; padding-bottom: 20px;
             overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch; 
         }
-        .swisse-card { flex: 0 0 auto; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; pointer-events: auto; }
-        .swisse-card-landscape { width: 80vw; max-width: 600px; }
-        .swisse-card-portrait { width: 65vw; max-width: 400px; }
-        .swisse-card-img { width: 100%; height: 40vh; border-radius: 20px; overflow: hidden; position: relative; background: #111; }
-        .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
-        .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; }
+        .swisse-card { flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; scroll-snap-align: start; }
+        /* 还原原始高度与比例逻辑 */
+        .swisse-card-landscape { width: calc(45vh * 16 / 9); }
+        .swisse-card-portrait { width: calc(45vh * 3 / 4); }
 
+        .swisse-card-img {
+            width: 100%; height: 45vh; border-radius: 20px; overflow: hidden;
+            position: relative; background: #111;
+        }
+        .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; text-align: justify; }
+
+        /* ========================================= */
+        /* 灯箱 - 修复居中问题 (Bug 3) */
+        /* ========================================= */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
             z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
         }
         .lightbox-overlay.active { display: flex; opacity: 1; }
+        .lightbox-content { 
+            position: relative; width: 100%; height: 100%; 
+            display: flex; align-items: center; justify-content: center; /* 核心：强制居中 */
+        }
         .lb-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; background: none; border: none; cursor: pointer; z-index: 10010; }
         .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10010; }
         .lb-nav.prev { left: 15px; }
@@ -126,29 +141,23 @@
         .lazy-img.loaded { filter: blur(0); }
 
         /* ========================================= */
-        /* 移动端绝对优化（解决 Bug 1, 2, 3） */
+        /* 移动端绝对优化 (包含自适应修复) */
         /* ========================================= */
         @media (max-width: 1024px) {
-            /* 解决 Bug 3: 压缩间距，一屏看更多 */
-            section { 
-                min-height: auto; 
-                padding: 60px 6% 30px; /* 减小上下 padding */
-            }
-            .content-grid { 
-                display: flex; 
-                flex-direction: column; 
-                gap: 20px; /* 减小文字与图的间距 */
-            }
-            /* 解决 Bug 1: 农夫山泉及类似布局在手机上强制堆叠，文字在上图在下 */
-            .content-grid.img-left { 
-                flex-direction: column-reverse; 
-            }
+            section { min-height: auto; padding: 60px 6% 30px; }
+            .content-grid { display: flex; flex-direction: column; gap: 20px; }
+            .content-grid.img-left { flex-direction: column-reverse; } /* 农夫山泉自适应修复 */
             
             .brand-h { font-size: 22px; margin-bottom: 8px; }
             .sub-h { font-size: 14px; margin-bottom: 10px; }
             ul li { margin-bottom: 5px; }
             .carousel-container { height: 45vh; }
             
+            /* 移动端斯维诗卡片高度微调 */
+            .swisse-card-landscape { width: calc(40vh * 16 / 9); }
+            .swisse-card-portrait { width: calc(40vh * 3 / 4); }
+            .swisse-card-img { height: 40vh; }
+
             .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; }
             .view-detail-btn { padding: 6px 15px; font-size: 11px; }
         }
@@ -212,19 +221,19 @@
             <div class="swisse-scroll-track" data-gallery="swisse">
                 <div class="swisse-card swisse-card-landscape">
                     <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="swisse-card-text"><b>保健品=老登? NO!</b> 围绕时尚健康新叙事，发起「万物皆可斯维诗」共创。</div>
+                    <div class="swisse-card-text"><b>保健品=老登? NO!</b> 围绕时尚健康新叙事，借势三八节发起「万物皆可斯维诗」小红书全名共创，打破刻板印象。</div>
                 </div>
                 <div class="swisse-card swisse-card-portrait">
                     <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/DzZ15rht/si-wei-shi1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="swisse-card-text">引领胶原水光瓶成为“新时尚”，实现从功能向生活方式的强势破圈。</div>
+                    <div class="swisse-card-text">成功引领胶原水光瓶成为社交媒体“新时尚”，<b>实现从功能性向生活方式的强势破圈</b>。</div>
                 </div>
                 <div class="swisse-card swisse-card-landscape">
                     <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/XvzdPr7X/dan-bai-fen3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="swisse-card-text">携手冲浪圈层，将蛋白粉打造成时尚运动圈层新宠。</div>
+                    <div class="swisse-card-text">切入时尚运动赛道，携手冲浪垂类圈层，<b>将蛋白粉打造成时尚运动圈层新宠</b>。</div>
                 </div>
                 <div class="swisse-card swisse-card-portrait">
                     <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/50QLWf6Y/dan-bai-fen4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="swisse-card-text">落地「浪尖 S 俱乐部」快闪，达成总曝光 7700W+ 次。</div>
+                    <div class="swisse-card-text">于三亚万宁落地「浪尖 S 俱乐部」快闪活动，以“强种草+天猫超市周年庆联动”驱动传播爆发，<b>达成总曝光 7700W+ 次</b>。</div>
                 </div>
             </div>
         </div>
