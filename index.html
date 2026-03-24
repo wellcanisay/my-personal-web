@@ -24,11 +24,12 @@
             color: var(--text-white);
             overflow-x: hidden;
             line-height: 1.5;
-            -webkit-touch-callout: none;
+            -webkit-touch-callout: none; /* 禁用长按弹出菜单 */
         }
         
         img { -webkit-user-drag: none; pointer-events: auto; }
 
+        /* 导航栏 */
         nav {
             position: fixed; top: 0; width: 100%; height: 60px;
             display: flex; justify-content: space-between; align-items: center;
@@ -41,11 +42,13 @@
             border-radius: 20px; font-weight: bold; text-decoration: none; font-size: 12px;
         }
 
+        /* 通用 Section 样式 */
         section {
             min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center;
             padding: 80px 8% 40px; border-bottom: 1px solid #111; position: relative; overflow: hidden;
         }
 
+        /* 首页 Hero 区域 */
         .hero-content { z-index: 1; position: relative; text-align: center; }
         .hello-title { font-size: clamp(40px, 8vw, 90px); font-weight: 800; color: var(--accent-yellow); margin-bottom: 20px; }
         .im-name { display: flex; align-items: center; justify-content: center; gap: 15px; font-size: clamp(28px, 5vw, 70px); font-weight: 800; margin-bottom: 30px; }
@@ -53,86 +56,104 @@
         .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
         .hero-desc { max-width: 600px; font-size: 15px; color: var(--text-gray); margin: 0 auto; }
 
-        /* 统一的 Content Grid */
+        /* 内容网格 */
         .content-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; 
+            display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center; 
             width: 100%; max-width: 1400px; z-index: 1; position: relative;
         }
 
-        /* 飘柔板块 */
-        .project-text ul li { list-style: none; color: var(--text-gray); font-size: 13px; margin-bottom: 8px; position: relative; padding-left: 15px; }
-        .project-text ul li::before { content: "•"; color: var(--highlight-orange); position: absolute; left: 0; }
-        .brand-h { font-size: clamp(20px, 2.5vw, 32px); font-weight: 800; margin-bottom: 12px; }
-
+        /* 轮播图样式 */
         .carousel-container {
-            position: relative; width: 100%; height: 60vh; overflow: hidden; border-radius: 20px; background: #111;
+            position: relative; width: 100%; height: 65vh; overflow: hidden; border-radius: 20px; background: #111;
         }
-        .carousel-slides { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease; }
-        .carousel-slide { flex: 0 0 100%; position: relative; background: #000; }
+        .carousel-slides { display: flex; width: 100%; height: 100%; transition: transform 0.5s cubic-bezier(0.45, 0, 0.55, 1); }
+        .carousel-slide { flex: 0 0 100%; position: relative; background: #000; overflow: hidden; }
         .carousel-slide img { width: 100%; height: 100%; object-fit: contain; }
 
-        .hover-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
-        .carousel-slide:hover .hover-overlay { opacity: 1; }
-        .view-detail-btn { background: var(--accent-yellow); color: black; padding: 10px 20px; border-radius: 30px; font-weight: 800; cursor: pointer; border: none; }
+        /* 悬浮覆盖层（查看大图按钮） */
+        .hover-overlay { 
+            position: absolute; inset: 0; background: rgba(0,0,0,0.2); 
+            display: flex; align-items: center; justify-content: center; 
+            opacity: 0; transition: opacity 0.3s; z-index: 5;
+        }
+        .carousel-slide:hover .hover-overlay, .swisse-card-img:hover .hover-overlay { opacity: 1; }
+        .view-detail-btn { 
+            background: var(--accent-yellow); color: black; padding: 12px 24px; 
+            border-radius: 30px; font-weight: 800; cursor: pointer; border: none; font-size: 14px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
 
-        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; z-index: 10; cursor: pointer; }
-        .carousel-btn.prev { left: 10px; }
-        .carousel-btn.next { right: 10px; }
+        .carousel-btn { 
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); 
+            color: white; border: none; width: 44px; height: 44px; border-radius: 50%; z-index: 10; cursor: pointer; 
+        }
+        .carousel-btn.prev { left: 15px; }
+        .carousel-btn.next { right: 15px; }
 
-        /* 斯维诗板块 - 彻底修复滑动 BUG 1 */
+        /* 斯维诗板块 - 修复 BUG 1（全域滑动） */
         .swisse-section { flex-direction: column; align-items: flex-start; justify-content: flex-start; }
         .swisse-header { width: 100%; margin-bottom: 30px; }
-
-        .swisse-scroll-track {
-            display: flex; gap: 20px; width: 100%;
-            overflow-x: auto; /* 核心：开启横向滚动 */
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch; /* 核心：iOS 丝滑滚动 */
-            scroll-snap-type: x mandatory; /* 核心：自动吸附 */
-            padding-bottom: 10px; /* 留出滚动条空间 */
-        }
         
+        .swisse-scroll-track {
+            display: flex; gap: 24px; width: 100%;
+            overflow-x: auto; overflow-y: hidden;
+            -webkit-overflow-scrolling: touch; /* iOS 弹性滑动 */
+            scroll-snap-type: x mandatory; /* 自动吸附效果 */
+            padding-bottom: 20px;
+        }
+        .swisse-scroll-track::-webkit-scrollbar { display: none; } /* 隐藏滚动条让视觉更干净 */
+
         .swisse-card {
             flex: 0 0 auto; scroll-snap-align: start;
-            display: flex; flex-direction: column; gap: 10px;
-            text-decoration: none; color: inherit;
-            /* 确保整个卡片（图+文）都能接收触摸事件 */
-            pointer-events: auto;
+            display: flex; flex-direction: column; gap: 15px;
+            pointer-events: auto; /* 确保整个区域可触控 */
         }
-        .swisse-card-landscape { width: 80vw; max-width: 600px; }
-        .swisse-card-portrait { width: 60vw; max-width: 400px; }
+        .swisse-card-landscape { width: 85vw; max-width: 650px; }
+        .swisse-card-portrait { width: 65vw; max-width: 450px; }
 
-        .swisse-card-img { width: 100%; height: 35vh; border-radius: 15px; overflow: hidden; position: relative; background: #111; }
+        .swisse-card-img { width: 100%; height: 40vh; border-radius: 20px; overflow: hidden; position: relative; background: #111; }
         .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
         
-        .swisse-card-text { padding: 5px; }
-        .card-brand { font-size: 14px; font-weight: 800; color: var(--text-white); margin-bottom: 4px; }
-        .card-desc { font-size: 12px; color: var(--text-gray); }
+        .swisse-card-text { padding: 5px 10px; }
+        .card-brand { font-size: 16px; font-weight: 800; color: var(--text-white); margin-bottom: 6px; }
+        .card-desc { font-size: 13px; color: var(--text-gray); line-height: 1.5; }
 
-        /* 灯箱 - 彻底修复 BUG 2 (支持翻页) */
+        /* 灯箱画廊 - 修复 BUG 2（大图翻页） */
         .lightbox-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.98);
             z-index: 10000; display: none; align-items: center; justify-content: center;
         }
         .lightbox-overlay.active { display: flex; }
         .lightbox-content { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .lightbox-img { max-width: 95%; max-height: 90%; object-fit: contain; user-select: none; }
+        .lightbox-img { max-width: 95%; max-height: 92%; object-fit: contain; transition: transform 0.3s ease; }
         
-        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; background: none; border: none; cursor: pointer; z-index: 10010; }
-        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 20px; cursor: pointer; z-index: 10010; transition: background 0.3s; }
+        .lightbox-close { position: absolute; top: 25px; right: 25px; color: white; font-size: 35px; background: none; border: none; cursor: pointer; z-index: 10010; }
+        .lightbox-nav { 
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.08); 
+            color: white; border: none; width: 60px; height: 60px; border-radius: 50%; font-size: 24px; 
+            cursor: pointer; z-index: 10010; transition: background 0.3s; 
+        }
         .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
         .lightbox-nav.prev { left: 20px; }
         .lightbox-nav.next { right: 20px; }
 
-        .lazy-img { opacity: 0; transition: opacity 0.5s ease; }
+        /* 列表样式 */
+        .project-text ul { list-style: none; margin: 20px 0; }
+        .project-text ul li { position: relative; padding-left: 20px; margin-bottom: 12px; font-size: 14px; color: var(--text-gray); text-align: justify; }
+        .project-text ul li::before { content: "•"; position: absolute; left: 0; color: var(--highlight-orange); font-weight: bold; }
+
+        /* 懒加载渐现 */
+        .lazy-img { opacity: 0; transition: opacity 0.8s ease; }
         .lazy-img.loaded { opacity: 1; }
 
+        /* 响应式调整 */
         @media (max-width: 1024px) {
             .content-grid { grid-template-columns: 1fr; gap: 30px; }
-            .carousel-container { height: 45vh; }
-            .hero-desc { font-size: 13px; }
-            .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 10px; }
-            .view-detail-btn { padding: 5px 10px; font-size: 10px; }
+            .carousel-container { height: 50vh; }
+            section { padding: 80px 6% 60px; }
+            .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; pointer-events: none; }
+            .view-detail-btn { pointer-events: auto; padding: 8px 16px; font-size: 12px; }
+            .lightbox-nav { width: 44px; height: 44px; font-size: 18px; background: rgba(255,255,255,0.15); }
         }
     </style>
 </head>
@@ -155,62 +176,62 @@
             </div>
             <div class="hero-desc">
                 拥有10年数字营销行业经验，具备从策略规划到项目落地的全链路管理能力。<br>
-                在工作之外，对经济周期与半导体行业有长期观察与好奇。
+                长期服务于世界500强及国内顶尖品牌，对快消、母婴、健康等领域有深刻洞察。
             </div>
         </div>
     </section>
 
-    <section>
+    <section id="pg-section">
         <div class="content-grid">
             <div class="project-text">
-                <p class="accent-yellow" style="font-size:12px;font-weight:bold;margin-bottom:5px;">BlueFocus | 2014-2024</p>
+                <p class="tag-line" style="color:var(--accent-yellow); font-size:12px; font-weight:bold;">BlueFocus | 2014-2024</p>
                 <h2 class="brand-h">宝洁 品牌长期服务</h2>
                 <ul>
-                    <li>主导行业首款“免洗护发素”上市，助推京东搜索增长 200%。</li>
-                    <li>推出「会说话的护发素」，吸引李佳琦亲自选品推荐。</li>
+                    <li>主导行业首款“免洗护发素”上市，助推京东搜索增长 200%，天猫搜索增长 166%</li>
+                    <li>策划「会说话的护发素」，吸引头部主播【李佳琦亲自选品】直播推荐</li>
                 </ul>
             </div>
-            <div class="carousel-container" id="pg-carousel" data-gallery="pg">
+            <div class="carousel-container" data-gallery="pg">
                 <div class="carousel-slides">
                     <div class="carousel-slide">
-                        <img class="lazy-img" data-src="https://i.postimg.cc/ZRBSZMPS/piao-rou1.png" alt="飘柔1">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/ZRBSZMPS/piao-rou1.png" alt="P&G 1">
                         <div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div>
                     </div>
                     <div class="carousel-slide">
-                        <img class="lazy-img" data-src="https://i.postimg.cc/jdrb0vL6/piao-rou2.png" alt="飘柔2">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/jdrb0vL6/piao-rou2.png" alt="P&G 2">
                         <div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div>
                     </div>
-                </div>
+                    </div>
                 <button class="carousel-btn prev">◀</button>
                 <button class="carousel-btn next">▶</button>
             </div>
         </div>
     </section>
 
-    <section class="swisse-section">
+    <section class="swisse-section" id="sw-section">
         <div class="swisse-header">
-            <p class="accent-yellow" style="font-size:12px;font-weight:bold;">LIFESTYLE & SOCIAL</p>
+            <p style="color:var(--accent-yellow); font-size:12px; font-weight:bold;">LIFESTYLE & SOCIAL</p>
             <h2 class="brand-h">斯维诗</h2>
         </div>
         <div class="swisse-scroll-track" data-gallery="swisse">
             <div class="swisse-card swisse-card-landscape">
                 <div class="swisse-card-img">
-                    <img class="lazy-img" data-src="https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png" alt="斯维诗2">
+                    <img class="lazy-img" data-src="https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png" alt="Swisse 1">
                     <div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div>
                 </div>
                 <div class="swisse-card-text">
-                    <p class="card-brand">Swisse 1</p>
-                    <p class="card-desc">横向体验设计案例</p>
+                    <p class="card-brand">万物皆可斯维诗</p>
+                    <p class="card-desc">围绕时尚健康新叙事，打破刻板印象，实现全名共创。</p>
                 </div>
             </div>
             <div class="swisse-card swisse-card-portrait">
                 <div class="swisse-card-img">
-                    <img class="lazy-img" data-src="https://i.postimg.cc/DzZ15rht/si-wei-shi1.png" alt="斯维诗1">
+                    <img class="lazy-img" data-src="https://i.postimg.cc/DzZ15rht/si-wei-shi1.png" alt="Swisse 2">
                     <div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div>
                 </div>
                 <div class="swisse-card-text">
-                    <p class="card-brand">Swisse 2</p>
-                    <p class="card-desc">纵向视觉表现</p>
+                    <p class="card-brand">胶原水光瓶破圈</p>
+                    <p class="card-desc">成功引领社交媒体新时尚，实现从功能向生活方式的跨越。</p>
                 </div>
             </div>
         </div>
@@ -220,133 +241,108 @@
         <button class="lightbox-close" id="lb-close">✕</button>
         <button class="lightbox-nav prev" id="lb-prev">◀</button>
         <div class="lightbox-content">
-            <img class="lightbox-img" id="lb-img" src="" alt="大图">
+            <img class="lightbox-img" id="lb-img" src="" alt="Zoom Image">
         </div>
         <button class="lightbox-nav next" id="lb-next">▶</button>
     </div>
 
     <script>
-        // 1. 简化的轮播逻辑
+        // 1. 初始化所有轮播图
         function initCarousels() {
             document.querySelectorAll('.carousel-container').forEach(container => {
                 const slides = container.querySelector('.carousel-slides');
-                const prevBtn = container.querySelector('.carousel-btn.prev');
-                const nextBtn = container.querySelector('.carousel-btn.next');
-                if(!slides || !prevBtn || !nextBtn) return;
+                const prev = container.querySelector('.prev');
+                const next = container.querySelector('.next');
+                if(!slides || !prev || !next) return;
 
                 let index = 0;
                 const total = slides.children.length;
 
-                const update = () => slides.style.transform = `translateX(-${index * 100}%)`;
-                
-                prevBtn.addEventListener('click', (e) => { e.stopPropagation(); index = (index - 1 + total) % total; update(); });
-                nextBtn.addEventListener('click', (e) => { e.stopPropagation(); index = (index + 1) % total; update(); });
+                const move = (dir) => {
+                    index = (index + dir + total) % total;
+                    slides.style.transform = `translateX(-${index * 100}%)`;
+                };
+
+                prev.onclick = (e) => { e.stopPropagation(); move(-1); };
+                next.onclick = (e) => { e.stopPropagation(); move(1); };
             });
         }
 
-        // 2. 增强版灯箱逻辑 - 修复 BUG 2 (支持翻页)
-        function initLightbox() {
-            const lightbox = document.getElementById('lightbox');
+        // 2. 增强版灯箱逻辑（解决 BUG 2：左右切换）
+        function initLightboxGallery() {
+            const lb = document.getElementById('lightbox');
             const lbImg = document.getElementById('lb-img');
-            const closeBtn = document.getElementById('lb-close');
-            const prevBtn = document.getElementById('lb-prev');
-            const nextBtn = document.getElementById('lb-next');
+            const close = document.getElementById('lb-close');
+            const prev = document.getElementById('lb-prev');
+            const next = document.getElementById('lb-next');
 
-            let currentGalleryImages = []; // 当前板块的所有图片链接
-            let currentIndex = 0; // 当前显示的图片索引
+            let currentList = [];
+            let currentIdx = 0;
 
-            // 打开灯箱
-            const openLb = (galleryId, imgSrc) => {
-                // 1. 收集当前板块的所有大图
-                currentGalleryImages = [];
+            const openGallery = (galleryId, startSrc) => {
+                // 获取当前板块下所有的懒加载图片
                 const galleryContainer = document.querySelector(`[data-gallery="${galleryId}"]`);
                 if(!galleryContainer) return;
 
-                const imgs = galleryContainer.querySelectorAll('.lazy-img');
-                imgs.forEach((img, index) => {
-                    const src = img.getAttribute('data-src');
-                    currentGalleryImages.push(src);
-                    if(src === imgSrc) currentIndex = index; // 记录当前点击的是第几张
-                });
+                const imgs = Array.from(galleryContainer.querySelectorAll('.lazy-img'));
+                currentList = imgs.map(i => i.getAttribute('data-src'));
+                currentIdx = currentList.indexOf(startSrc);
 
-                // 2. 更新灯箱内容
-                updateLbContent();
-                lightbox.classList.add('active');
+                updateDisplay();
+                lb.classList.add('active');
+                document.body.style.overflow = 'hidden'; // 禁止背景滚动
             };
 
-            // 更新灯箱显示的图片和导航按钮
-            const updateLbContent = () => {
-                lbImg.src = currentGalleryImages[currentIndex];
-                // 如果只有一张图，隐藏导航
-                const showNav = currentGalleryImages.length > 1;
-                prevBtn.style.display = showNav ? 'block' : 'none';
-                nextBtn.style.display = showNav ? 'block' : 'none';
+            const updateDisplay = () => {
+                lbImg.src = currentList[currentIdx];
+                // 如果只有一张图，隐藏导航键
+                prev.style.display = next.style.display = currentList.length > 1 ? 'block' : 'none';
             };
 
-            // 切换图片
-            const changeImg = (direction) => {
-                const total = currentGalleryImages.length;
-                currentIndex = (currentIndex + direction + total) % total;
-                updateLbContent();
+            const slide = (dir) => {
+                currentIdx = (currentIdx + dir + currentList.length) % currentList.length;
+                updateDisplay();
             };
 
-            // 关闭
-            const closeLb = () => lightbox.classList.remove('active');
-
-            // --- 事件绑定 ---
-            // 绑定所有“查看大图”按钮
+            // 监听所有“查看大图”按钮
             document.querySelectorAll('.view-detail-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // 防止触发轮播图的点击
-                    // 找到它属于哪个画廊 (data-gallery)
-                    const galleryContainer = btn.closest('[data-gallery]');
-                    if(!galleryContainer) return;
-                    
-                    const galleryId = galleryContainer.getAttribute('data-gallery');
-                    // 找到对应的图片链接
-                    const card = btn.closest('.carousel-slide, .swisse-card-img');
-                    const img = card.querySelector('.lazy-img');
-                    const imgSrc = img.getAttribute('data-src');
-
-                    openLb(galleryId, imgSrc);
-                });
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const container = btn.closest('[data-gallery]');
+                    const img = btn.closest('.carousel-slide, .swisse-card-img').querySelector('.lazy-img');
+                    if(container && img) openGallery(container.getAttribute('data-gallery'), img.getAttribute('data-src'));
+                };
             });
 
-            closeBtn.addEventListener('click', closeLb);
-            lightbox.addEventListener('click', (e) => { if(e.target === lightbox || e.target.classList.contains('lightbox-content')) closeLb(); });
-            prevBtn.addEventListener('click', (e) => { e.stopPropagation(); changeImg(-1); });
-            nextBtn.addEventListener('click', (e) => { e.stopPropagation(); changeImg(1); });
-
-            // 响应键盘
-            document.addEventListener('keydown', (e) => {
-                if(!lightbox.classList.contains('active')) return;
-                if(e.key === 'Escape') closeLb();
-                if(e.key === 'ArrowLeft') changeImg(-1);
-                if(e.key === 'ArrowRight') changeImg(1);
-            });
+            close.onclick = () => { lb.classList.remove('active'); document.body.style.overflow = ''; };
+            prev.onclick = (e) => { e.stopPropagation(); slide(-1); };
+            next.onclick = (e) => { e.stopPropagation(); slide(1); };
+            lb.onclick = (e) => { if(e.target === lb || e.target.classList.contains('lightbox-content')) close.onclick(); };
         }
 
-        // 3. 懒加载
-        function initLazyLoad() {
-            const obs = new IntersectionObserver((entries) => {
-                entries.forEach(en => {
-                    if(en.isIntersecting) {
-                        const img = en.target;
+        // 3. 懒加载系统
+        function initLazyLoader() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting) {
+                        const img = entry.target;
                         img.src = img.getAttribute('data-src');
                         img.onload = () => img.classList.add('loaded');
-                        img.onerror = () => img.classList.add('loaded'); // 兜底
-                        obs.unobserve(img);
+                        img.onerror = () => img.classList.add('loaded'); // 即使失败也取消模糊
+                        observer.unobserve(img);
                     }
                 });
-            }, {rootMargin: "200px"});
-            document.querySelectorAll('.lazy-img').forEach(el => obs.observe(el));
+            }, { rootMargin: '300px' });
+            document.querySelectorAll('.lazy-img').forEach(el => observer.observe(el));
         }
 
+        // 启动所有功能
         window.onload = () => {
-            initLazyLoad();
+            initLazyLoader();
             initCarousels();
-            initLightbox();
-            document.addEventListener('touchstart', function(){}, {passive: true}); // 优化 iOS 点击
+            initLightboxGallery();
+            // 解决移动端点击 300ms 延迟
+            document.addEventListener('touchstart', function(){}, {passive: true});
         };
     </script>
 </body>
