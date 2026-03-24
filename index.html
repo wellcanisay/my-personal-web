@@ -16,11 +16,10 @@
             --highlight-orange: #FF6B00;
         }
 
-        /* 核心修复：防止 iOS 等移动端浏览器自动调整字体大小 (Font Boosting) */
+        /* 强制禁止移动端浏览器自动缩放字体 */
         html {
             -webkit-text-size-adjust: none;
             text-size-adjust: none;
-            font-size: 16px; /* 设置基准字体大小 */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -105,7 +104,7 @@
         .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
         .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
 
-        /* 斯维诗板块 - 基础排版 */
+        /* 斯维诗板块 - PC端横竖图UI */
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
             display: flex; gap: 30px; width: 100%; padding-bottom: 20px;
@@ -113,15 +112,11 @@
             -webkit-overflow-scrolling: touch; 
         }
         .swisse-card { flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; scroll-snap-align: start; }
-        /* PC端原始横竖图比例 */
         .swisse-card-landscape { width: calc(45vh * 16 / 9); }
         .swisse-card-portrait { width: calc(45vh * 3 / 4); }
         .swisse-card-img { width: 100%; height: 45vh; border-radius: 20px; overflow: hidden; position: relative; background: #111; }
         .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
         .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; text-align: justify; }
-
-        /* Bug 2: 滑动提示默认不显示 */
-        .swisse-swipe-hint { display: none; }
 
         /* 灯箱居中修复 */
         .lightbox-overlay {
@@ -139,8 +134,10 @@
         .lazy-img { filter: blur(10px); transition: filter 0.5s; }
         .lazy-img.loaded { filter: blur(0); }
 
+        .swisse-swipe-hint { display: none; }
+
         /* ========================================= */
-        /* 移动端绝对优化 (包含Bug 1, Bug 2 修复) */
+        /* 移动端自适应与文字锁定 */
         /* ========================================= */
         @media (max-width: 1024px) {
             section { min-height: auto; padding: 80px 6% 60px; }
@@ -156,40 +153,28 @@
             ul li { margin-bottom: 5px; }
             .carousel-container { height: 45vh; }
             
-            /* 斯维诗移动端适配 */
             .swisse-card-landscape { width: calc(40vh * 16 / 9); }
             .swisse-card-portrait { width: calc(40vh * 3 / 4); }
             .swisse-card-img { height: 40vh; }
 
-            /* 彻底解决 Bug 1: 强制锁定移动端斯维诗文字大小，防止浏览器自动缩放 */
-            html .swisse-card-text { 
-                font-size: 0.8125rem !important; /* 13px */
+            /* 彻底修复移动端斯维诗文字大小不一 */
+            .swisse-card-text { 
+                font-size: 13px !important; 
                 line-height: 1.6 !important; 
                 padding: 0 5px;
                 color: var(--text-gray);
-                display: block !important;
-                width: 100% !important;
             }
-            /* 强制锁定内部粗体文字大小 */
-            html .swisse-card-text b {
-                font-size: 0.8125rem !important;
-                color: var(--text-white);
-            }
+            .swisse-card-text b { font-size: 13px !important; color: var(--text-white); }
 
-            /* 修复 Bug 2: 斯维诗滑动提示排版 */
+            /* 滑动提示文字 */
             .swisse-swipe-hint { 
-                display: block; /* 移动端显示 */
+                display: block; 
                 text-align: center; 
                 font-size: 12px; 
                 color: var(--text-gray); 
-                padding: 0 0 20px; /* 提示文字下方留白 */
-                margin-top: -10px; /* 紧贴图片板块下方 */
+                padding: 10px 0 20px;
+                margin-top: -10px;
                 font-weight: 600;
-            }
-
-            /* 微调滑动容器间距配合提示 */
-            .swisse-scroll-track {
-                padding-bottom: 10px;
             }
 
             .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; }
@@ -222,7 +207,6 @@
     <section>
         <div class="content-grid">
             <div class="project-text">
-                <p class="tag-line">蓝色光标 (BlueFocus) | 2014-2024</p>
                 <h2 class="brand-h">宝洁 品牌长期创策服务 2018 - 2022</h2>
                 <span class="sub-h">飘柔 从30周年庆到爆品上市、公益传播，突破品类消费圈层，探索美的平权</span>
                 <ul>
