@@ -28,19 +28,13 @@
             -webkit-user-select: none;
             user-select: none;
         }
-        img {
-            -webkit-user-drag: none;
-            user-drag: none;
-            pointer-events: auto;
-        }
+        img { -webkit-user-drag: none; user-drag: none; pointer-events: auto; }
 
         nav {
-            position: fixed;
-            top: 0; width: 100%; height: 60px;
+            position: fixed; top: 0; width: 100%; height: 60px;
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 5%; z-index: 1000;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
         }
         .logo { font-weight: 800; font-size: 18px; }
         .btn-touch { 
@@ -60,7 +54,6 @@
         }
         
         .content-grid, .hero-content { z-index: 1; position: relative; width: 100%; }
-
         .hero { text-align: center; }
         .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .hello-title { font-size: clamp(40px, 8vw, 90px); font-weight: 800; letter-spacing: 2px; color: var(--accent-yellow); margin-bottom: 20px; }
@@ -93,9 +86,7 @@
             opacity: 0; transition: opacity 0.3s; z-index: 20;
         }
         .carousel-slide:hover .hover-overlay, .swisse-card-img:hover .hover-overlay { opacity: 1; }
-        .view-detail-btn {
-            background: var(--accent-yellow); color: black; padding: 10px 24px; border-radius: 30px; font-weight: 800; font-size: 13px; border: none; cursor: pointer;
-        }
+        .view-detail-btn { background: var(--accent-yellow); color: black; padding: 10px 24px; border-radius: 30px; font-weight: 800; font-size: 13px; border: none; cursor: pointer; }
 
         .carousel-btn {
             position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none;
@@ -107,16 +98,12 @@
         .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
         .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
 
-        /* 斯维诗板块修复 (BUG 1) */
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
             display: flex; gap: 20px; width: 100%; padding-bottom: 20px;
             overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch; 
         }
-        .swisse-scroll-track::-webkit-scrollbar { height: 4px; }
-        .swisse-scroll-track::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-
         .swisse-card { flex: 0 0 auto; scroll-snap-align: start; display: flex; flex-direction: column; gap: 12px; pointer-events: auto; }
         .swisse-card-landscape { width: 80vw; max-width: 600px; }
         .swisse-card-portrait { width: 65vw; max-width: 400px; }
@@ -124,20 +111,16 @@
         .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
         .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; }
 
-        /* 增强型画廊灯箱 (BUG 2) */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
             z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
         }
         .lightbox-overlay.active { display: flex; opacity: 1; }
-        .lightbox-content { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-        .lightbox-img { max-width: 90%; max-height: 85vh; object-fit: contain; transform: scale(0.9); transition: transform 0.3s; }
-        .lightbox-overlay.active .lightbox-img { transform: scale(1); }
-        
         .lb-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 35px; background: none; border: none; cursor: pointer; z-index: 10010; }
         .lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.1); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 10010; }
         .lb-nav.prev { left: 15px; }
         .lb-nav.next { right: 15px; }
+        .lightbox-img { max-width: 90%; max-height: 85vh; object-fit: contain; }
 
         .lazy-img { filter: blur(10px); transition: filter 0.5s; }
         .lazy-img.loaded { filter: blur(0); }
@@ -148,12 +131,10 @@
             section { height: auto; padding: 100px 6% 60px; }
             .brand-h { font-size: 24px; }
             .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; }
-            .view-detail-btn { padding: 8px 16px; font-size: 11px; }
         }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo">SUKIE.XIE</div>
         <a href="mailto:xieis@foxmail.com" class="btn-touch">Connect</a>
@@ -198,8 +179,7 @@
                     <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/gjcR73Fq/tu-pian-1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/9fTGwWYn/bao-jie.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
-                <button class="carousel-btn prev">◀</button>
-                <button class="carousel-btn next">▶</button>
+                <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
                 <div class="carousel-dots"></div>
             </div>
         </div>
@@ -207,10 +187,7 @@
 
     <section>
         <div class="swisse-wrapper">
-            <div class="swisse-header">
-                <p class="tag-line">LIFESTYLE & SOCIAL</p>
-                <h2 class="brand-h">斯维诗</h2>
-            </div>
+            <div class="swisse-header"><p class="tag-line">LIFESTYLE & SOCIAL</p><h2 class="brand-h">斯维诗</h2></div>
             <div class="swisse-scroll-track" data-gallery="swisse">
                 <div class="swisse-card swisse-card-landscape">
                     <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
@@ -247,8 +224,7 @@
                     <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/NMBryRMH/he-sheng-yuan2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/G2KTv989/he-sheng-yuan1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
-                <button class="carousel-btn prev">◀</button>
-                <button class="carousel-btn next">▶</button>
+                <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
                 <div class="carousel-dots"></div>
             </div>
         </div>
@@ -286,11 +262,10 @@
         gsap.utils.toArray('section').forEach(sec => {
             gsap.from(sec.querySelectorAll('.project-text, .carousel-container, .swisse-wrapper'), {
                 scrollTrigger: { trigger: sec, start: "top 80%" },
-                y: 50, opacity: 0, duration: 1, stagger: 0.2
+                y: 30, opacity: 0, duration: 0.8, stagger: 0.1
             });
         });
 
-        // 懒加载
         function initLazyLoad() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(en => {
@@ -305,82 +280,62 @@
             document.querySelectorAll('.lazy-img').forEach(img => obs.observe(img));
         }
 
-        // 轮播图逻辑
         function initCarousels() {
             document.querySelectorAll('.carousel-container').forEach(con => {
                 const slides = con.querySelector('.carousel-slides');
                 const total = slides.children.length;
                 const dotsCon = con.querySelector('.carousel-dots');
                 let idx = 0;
-
-                if(total > 1) {
+                if(total > 1 && dotsCon) {
                     for(let i=0; i<total; i++) {
                         const dot = document.createElement('div');
                         dot.className = 'dot' + (i===0?' active':'');
                         dotsCon.appendChild(dot);
                     }
                 }
-
                 const update = () => {
                     slides.style.transform = `translateX(-${idx*100}%)`;
-                    if(dotsCon) {
-                        dotsCon.querySelectorAll('.dot').forEach((d,i) => d.className = i===idx?'dot active':'dot');
-                    }
+                    if(dotsCon) dotsCon.querySelectorAll('.dot').forEach((d,i) => d.className = i===idx?'dot active':'dot');
                 };
-
                 con.querySelector('.prev')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx-1+total)%total; update(); });
                 con.querySelector('.next')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx+1)%total; update(); });
-                
-                // 触屏滑动支持
                 let sX = 0;
                 con.addEventListener('touchstart', (e) => sX = e.touches[0].clientX, {passive:true});
                 con.addEventListener('touchend', (e) => {
                     let dX = e.changedTouches[0].clientX - sX;
-                    if(Math.abs(dX) > 50) {
-                        if(dX > 0) idx=(idx-1+total)%total; else idx=(idx+1)%total;
-                        update();
-                    }
+                    if(Math.abs(dX) > 50) { if(dX > 0) idx=(idx-1+total)%total; else idx=(idx+1)%total; update(); }
                 });
             });
         }
 
-        // 联动画廊灯箱逻辑 (BUG 2)
         function initGalleryLightbox() {
             const lb = document.getElementById('lbOverlay');
             const lbImg = document.getElementById('lbImg');
-            let currentImgs = [];
-            let currentIdx = 0;
-
+            let currentImgs = []; let currentIdx = 0;
             const openLb = (galleryId, startSrc) => {
                 const container = document.querySelector(`[data-gallery="${galleryId}"]`);
-                currentImgs = Array.from(container.querySelectorAll('.lazy-img')).map(i => i.getAttribute('data-src') || i.src);
+                currentImgs = Array.from(container.querySelectorAll('.lazy-img')).map(i => i.getAttribute('data-src'));
                 currentIdx = currentImgs.indexOf(startSrc);
-                
                 lbImg.src = currentImgs[currentIdx];
                 lb.classList.add('active');
                 document.body.style.overflow = 'hidden';
             };
-
             document.querySelectorAll('.view-detail-btn').forEach(btn => {
                 btn.onclick = (e) => {
                     e.stopPropagation();
                     const con = btn.closest('[data-gallery]');
-                    const img = btn.closest('.carousel-slide, .swisse-card').querySelector('img');
-                    openLb(con.dataset.gallery, img.getAttribute('data-src') || img.src);
+                    const img = btn.closest('.carousel-slide, .swisse-card').querySelector('.lazy-img');
+                    openLb(con.dataset.gallery, img.getAttribute('data-src'));
                 };
             });
-
             const show = (dir) => {
                 currentIdx = (currentIdx + dir + currentImgs.length) % currentImgs.length;
                 lbImg.src = currentImgs[currentIdx];
             };
-
             document.getElementById('lbPrev').onclick = (e) => { e.stopPropagation(); show(-1); };
             document.getElementById('lbNext').onclick = (e) => { e.stopPropagation(); show(1); };
             document.getElementById('lbClose').onclick = () => { lb.classList.remove('active'); document.body.style.overflow=''; };
             lb.onclick = (e) => { if(e.target === lb || e.target.className === 'lightbox-content') document.getElementById('lbClose').click(); };
-            
-            // 手机滑动大图
             let sX = 0;
             lb.addEventListener('touchstart', e => sX = e.touches[0].clientX, {passive:true});
             lb.addEventListener('touchend', e => {
@@ -389,25 +344,8 @@
             });
         }
 
-        // 页面加水印
-        function addWatermark() {
-            const c = document.createElement('canvas');
-            c.width = 250; c.height = 150;
-            const ctx = c.getContext('2d');
-            ctx.fillStyle = 'rgba(255,255,255,0.05)';
-            ctx.font = '14px sans-serif';
-            ctx.rotate(-20*Math.PI/180);
-            ctx.fillText('Sukie作品，严禁外传', 20, 80);
-            const div = document.createElement('div');
-            div.style = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;background:url('+c.toDataURL()+')';
-            document.body.appendChild(div);
-        }
-
         window.onload = () => {
-            initLazyLoad();
-            initCarousels();
-            initGalleryLightbox();
-            addWatermark();
+            initLazyLoad(); initCarousels(); initGalleryLightbox();
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
