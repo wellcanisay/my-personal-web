@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    <title>Sukie Xie | Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg-black: #000000;
+            --text-white: #FFFFFF;
+            --accent-yellow: #FFD700;
+            --text-gray: #A1A1A6;
+            --highlight-orange: #FF6B00;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* ========================================= */
+        /* 防盗安全隔离层：禁用右键、长按与选中 */
+        /* ========================================= */
+        body {
+            background-color: var(--bg-black);
+            font-family: -apple-system, "SF Pro Display", "PingFang SC", sans-serif;
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.5;
+
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        img {
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+            pointer-events: auto;
+        }
+        /* ========================================= */
+
+        nav {
+            position: fixed;
+            top: 0; width: 100%; height: 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+        }
+        .logo { font-weight: 800; font-size: 18px; }
+        .btn-touch { 
+            background: var(--accent-yellow); color: black; padding: 6px 15px; 
+            border-radius: 20px; font-weight: bold; text-decoration: none; font-size: 12px;
+        }
+
+        section {
+            height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center;
+            padding: 0 8%; border-bottom: 1px solid #111; position: relative; overflow: hidden;
+        }
+
+        .section-bg {
+            position: absolute; top: -15%; left: -10%; width: 120%; height: 130%;
+            background-size: cover; background-position: center; opacity: 0.12;
+            z-index: 0; filter: blur(15px); pointer-events: none;
+        }
+        
+        .content-grid, .hero-content { z-index: 1; position: relative; }
+
+        .hero { text-align: center; }
+        .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .hello-title { font-size: clamp(40px, 8vw, 90px); font-weight: 800; letter-spacing: 2px; color: var(--accent-yellow); margin-bottom: 20px; }
+        .im-name { display: flex; align-items: center; justify-content: center; gap: 15px; font-size: clamp(28px, 5vw, 70px); font-weight: 800; margin-bottom: 30px; flex-wrap: wrap; }
+        .im-name span:first-child { font-weight: 700; color: var(--text-white); }
+        .im-name span:last-child { font-weight: 800; color: var(--text-white); }
+        .avatar-box { width: clamp(70px, 9vw, 100px); height: clamp(70px, 9vw, 100px); background: #2D2D2D; border-radius: 24px; overflow: hidden; border: 2px solid #444; }
+        .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-desc { max-width: 600px; font-size: 16px; color: var(--text-gray); margin: 0 auto; line-height: 1.6; }
+
+        .content-grid { display: grid; grid-template-columns: 0.9fr 1.4fr; gap: 40px; align-items: center; width: 100%; max-width: 1400px; }
+        .content-grid.img-left { grid-template-columns: 1.4fr 0.9fr; }
+
+        .project-text { padding-right: 10px; }
+        .tag-line { color: var(--accent-yellow); font-size: 12px; font-weight: bold; margin-bottom: 8px; }
+        .brand-h { font-size: clamp(20px, 2.5vw, 32px); font-weight: 800; margin-bottom: 12px; }
+        .sub-h { font-size: 15px; font-weight: 600; margin-bottom: 15px; display: block; }
+        ul { list-style: none; margin-bottom: 15px; }
+        ul li { position: relative; padding-left: 18px; margin-bottom: 8px; font-size: 13px; color: var(--text-gray); text-align: justify; line-height: 1.4; }
+        ul li::before { content: "•"; position: absolute; left: 0; color: var(--highlight-orange); font-weight: bold; }
+        .footer-text { font-size: 12px; color: var(--text-gray); border-top: 1px solid #222; padding-top: 12px; line-height: 1.4; }
+
+        .carousel-container {
+            position: relative; width: 100%; height: 75vh; overflow: hidden; border-radius: 20px;
+            background: #111; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+            cursor: grab;
+        }
+        .carousel-container:active { cursor: grabbing; }
+        .carousel-container:hover { transform: scale(1.02); box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
+        .carousel-horizontal { height: auto; aspect-ratio: 16 / 9; }
+        .carousel-slides { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease; }
+        .carousel-slide { flex: 0 0 100%; width: 100%; height: 100%; position: relative; }
+        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        .hover-overlay {
+            position: absolute; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.3s ease; z-index: 15; pointer-events: none;
+        }
+        .carousel-slide:hover .hover-overlay, .swisse-card-img:hover .hover-overlay { opacity: 1; pointer-events: auto; }
+        .view-detail-btn {
+            background: var(--accent-yellow); color: black; padding: 12px 28px; border-radius: 30px; font-weight: 800; font-size: 14px; border: none; cursor: pointer; 
+            transform: translateY(20px); transition: transform 0.3s ease, background 0.2s ease;
+        }
+        .carousel-slide:hover .view-detail-btn, .swisse-card-img:hover .view-detail-btn { transform: translateY(0); }
+        .view-detail-btn:hover { background: var(--text-white); }
+
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none;
+            width: 44px; height: 44px; border-radius: 50%; cursor: pointer; font-size: 20px; font-weight: bold; display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s; z-index: 50; 
+        }
+        .carousel-btn:hover { background: rgba(0,0,0,0.8); }
+        .carousel-btn.prev { left: 12px; }
+        .carousel-btn.next { right: 12px; }
+        .carousel-dots { position: absolute; bottom: 16px; left: 0; right: 0; display: flex; justify-content: center; gap: 10px; z-index: 50; pointer-events: none;}
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: background 0.2s; pointer-events: auto;}
+        .dot.active { background: var(--accent-yellow); }
+
+        .highlight-o { color: var(--highlight-orange) !important; }
+
+        /* 懒加载模糊过渡 */
+        .lazy-img { filter: blur(15px); transition: filter 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .lazy-img.loaded { filter: blur(0); }
+
+        /* ========================================= */
+        /* 斯维诗 Apple Neo 自适应滑动布局 */
+        /* ========================================= */
+        .swisse-wrapper {
+            z-index: 1; position: relative; width: 100%; max-width: 1600px;
+            display: flex; flex-direction: column; justify-content: center; overflow: hidden; 
+        }
+        .swisse-header { flex-shrink: 0; margin-bottom: 25px; }
+        
+        .swisse-scroll-track {
+            display: flex; gap: 30px; width: 100%; padding-bottom: 20px;
+            overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
+            scroll-behavior: smooth; align-items: flex-start; cursor: grab;
+            scrollbar-width: thin; scrollbar-color: #444 #111;
+            /* 强制开启 iOS Safari 原生惯性滑动 */
+            -webkit-overflow-scrolling: touch; 
+        }
+        
+        /* 【修复1】优化 Safari 拖拽解绑渲染，使用专门的 CSS 类 */
+        .swisse-scroll-track.is-dragging {
+            cursor: grabbing;
+            scroll-snap-type: none !important;
+            scroll-behavior: auto !important;
+        }
+        
+        .swisse-scroll-track::-webkit-scrollbar { height: 6px; }
+        .swisse-scroll-track::-webkit-scrollbar-track { background: #111; border-radius: 10px; }
+        .swisse-scroll-track::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+
+        .swisse-card { flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; scroll-snap-align: start; }
+        .swisse-card-landscape { width: calc(45vh * 16 / 9); }
+        .swisse-card-portrait { width: calc(45vh * 3 / 4); }
+
+        .swisse-card-img {
+            width: 100%; height: 45vh; border-radius: 20px; overflow: hidden;
+            position: relative; background: #111; box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+        }
+        .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
+        .swisse-card-img:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.6); }
+        
+        .swisse-card-text { font-size: clamp(13px, 1.2vw, 15px); color: var(--text-gray); line-height: 1.6; text-align: justify; padding-right: 10px; pointer-events: none;}
+        .swisse-card-text b { color: var(--text-white); font-weight: 600; }
+
+        /* 极简大图灯箱浮层 */
+        .lightbox-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.92); backdrop-filter: blur(5px);
+            z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
+        .lightbox-overlay img {
+            max-width: 90%; max-height: 90vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); object-fit: contain; pointer-events: auto; 
+        }
+        .lightbox-overlay.active img { transform: scale(1); }
+        .modal-close {
+            position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: white;
+            width: 44px; height: 44px; border-radius: 50%; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+        }
+        .modal-close:hover { background: rgba(255,255,255,0.3); }
+
+        /* 移动端绝对锁定自适应逻辑 */
+        @media (max-width: 1024px) {
+            .content-grid, .content-grid.img-left { display: flex; flex-direction: column; gap: 30px; }
+            .project-text { order: 2; padding-right: 0; }
+            .carousel-container { order: 1; height: 50vh; width: 100%; display: block; }
+            .carousel-horizontal { height: auto; aspect-ratio: 16 / 9; }
+            section { height: auto; min-height: 100vh; padding: 100px 5% 60px; }
+            .im-name { gap: 10px; }
+            .brand-h { font-size: 24px !important; }
+            
+            .swisse-wrapper { justify-content: center; padding-top: 15px;}
+            .swisse-scroll-track { gap: 16px; padding-bottom: 15px; }
+            
+            /* 【精改：绝对锁定高度自适应】 */
+            .swisse-card-landscape { width: calc(40vh * 16 / 9); }
+            .swisse-card-portrait { width: calc(40vh * 3 / 4); }
+            .swisse-card-img { height: 40vh !important; } 
+            
+            .lightbox-overlay img { max-width: 95%; max-height: 80vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">SUKIE.X</div>
+        <a href="#" class="btn-touch">Connect</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hello-title">HELLO!</div>
+            <div class="im-name">
+                <span>I'M</span>
+                <div class="avatar-box"><img src="https://i.ibb.co/k6Qk3Ywq/IMG-1014.png" alt="Avatar"></div>
+                <span>SUKIE XIE</span>
+            </div>
+            <div class="hero-desc">
+                拥有10年数字营销行业经验，具备从策略规划到项目落地的全链路管理能力。<br>
+                长期服务于世界500强及国内顶尖品牌，对快消、母婴、健康等领域有深刻洞察。<br>
+                在工作之外，有跨领域学习的内在驱动力，对经济周期与半导体行业有长期观察与好奇。
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=800');"></div>
+        <div class="content-grid">
+            <div class="project-text">
+                <p class="tag-line">蓝色光标 (BlueFocus) | 2014-2024</p>
+                <h2 class="brand-h">宝洁 品牌长期创策服务 2018 - 2022</h2>
+                <span class="sub-h">飘柔 从30周年庆到爆品上市、公益传播，突破品类消费圈层，探索美的平权</span>
+                <ul>
+                    <li>主导行业首款“免洗护发素”从0到1上市策划，面对消费者0认知的市场空白，制定“专业信任 x 场景种草”整合策略，打造「百试不腻吉尼斯挑战事件」「高考营销 18 岁的美只有一次」等案例，助推新品京东搜索增长 200%，天猫搜索增长 166%</li>
+                    <li>视障人群对美的需求几乎无人关注，打破常规以免洗新品解开美的盲区，推出「会说话的护发素」，搭建首个闭眼也能看的变美平台，并吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
+                </ul>
+                <p class="footer-text">负责海飞丝头皮健康白皮书传播、吉列新品上市&明星直播、宝洁洗发品类商超国风 CNY 营销。从深挖洞察，到专业化背书、social、线下渠道全链路营销覆盖</p>
+            </div>
+            <div class="img-box carousel-container" data-autoplay="true">
+                <div class="carousel-slides">
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/ZRBSZMPS/piao-rou1.png" alt="Rejoice 1" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/ZRBSZMPS/piao-rou1.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/jdrb0vL6/piao-rou2.png" alt="Rejoice 2" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/jdrb0vL6/piao-rou2.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/nVByk703/piao-rou3.png" alt="Rejoice 3" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/nVByk703/piao-rou3.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/c1wpmYXc/piao-rou4.png" alt="Rejoice 4" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/c1wpmYXc/piao-rou4.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/1XGb3h8h/piao-rou5.png" alt="Rejoice 5" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/1XGb3h8h/piao-rou5.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/RZV24Y9d/piao-rou6.png" alt="Rejoice 6" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/RZV24Y9d/piao-rou6.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/VsqhMwNP/piao-rou7.png" alt="Rejoice 7" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/VsqhMwNP/piao-rou7.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/gjcR73Fq/tu-pian-1.png" alt="Rejoice 8" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/gjcR73Fq/tu-pian-1.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/9fTGwWYn/bao-jie.png" alt="Rejoice 9" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/9fTGwWYn/bao-jie.png')">查看大图</button></div>
+                    </div>
+                </div>
+                <button class="carousel-btn prev">◀</button>
+                <button class="carousel-btn next">▶</button>
+                <div class="carousel-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1200&h=600&fit=crop');"></div>
+        
+        <div class="swisse-wrapper">
+            <div class="swisse-header">
+                <p class="tag-line">LIFESTYLE & SOCIAL</p>
+                <h2 class="brand-h">斯维诗</h2>
+            </div>
+            
+            <div class="swisse-scroll-track" id="swisseTrack">
+                <div class="swisse-card swisse-card-landscape">
+                    <div class="swisse-card-img">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png" alt="Swisse 1">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png')">查看大图</button></div>
+                    </div>
+                    <div class="swisse-card-text">
+                        <p><b>保健品=老登? NO!</b> 围绕时尚健康新叙事，借势三八节发起「万物皆可斯维诗」小红书全名共创，打破刻板印象。</p>
+                    </div>
+                </div>
+
+                <div class="swisse-card swisse-card-portrait">
+                    <div class="swisse-card-img">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/DzZ15rht/si-wei-shi1.png" alt="Swisse 2">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/DzZ15rht/si-wei-shi1.png')">查看大图</button></div>
+                    </div>
+                    <div class="swisse-card-text">
+                        <p>成功引领胶原水光瓶成为社交媒体“新时尚”，<b>实现从功能性向生活方式的强势破圈</b>。</p>
+                    </div>
+                </div>
+
+                <div class="swisse-card swisse-card-landscape">
+                    <div class="swisse-card-img">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/XvzdPr7X/dan-bai-fen3.png" alt="Swisse 3">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/XvzdPr7X/dan-bai-fen3.png')">查看大图</button></div>
+                    </div>
+                    <div class="swisse-card-text">
+                        <p>切入时尚运动赛道，携手冲浪垂类圈层，<b>将蛋白粉打造成时尚运动圈层新宠</b>。</p>
+                    </div>
+                </div>
+
+                <div class="swisse-card swisse-card-portrait">
+                    <div class="swisse-card-img">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/50QLWf6Y/dan-bai-fen4.png" alt="Swisse 4">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/50QLWf6Y/dan-bai-fen4.png')">查看大图</button></div>
+                    </div>
+                    <div class="swisse-card-text">
+                        <p>于三亚万宁落地「浪尖 S 俱乐部」快闪活动，以“强种草+天猫超市周年庆联动”驱动传播爆发，<b>达成总曝光 7700W+ 次</b>。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1519750157634-b6d493a0f77c?w=800');"></div>
+        <div class="content-grid">
+            <div class="project-text">
+                <p class="tag-line">ENTERTAINMENT MARKETING</p>
+                <h2 class="brand-h">合生元 <span class="highlight-o">品牌年轻化和综艺IP营销</span></h2>
+                <ul>
+                    <li>育儿焦虑、“新国标”多重挑战之下，为品牌焕新「妈妈少担心」主体性表达，策划综艺《披荆斩棘哥哥》王耀庆《乘风破浪姐姐》Ella 植入营销，精准传递松弛育儿观和品牌内在保护独特 RTB，相关 TVC 视频播放量高达 2.1 亿，全网总曝光量达到 7.4 亿</li>
+                    <li>针对核心母婴店，策划每月“奶粉+营养品”销冠组合活动，以品牌理念 x 亲子体验双赋能渠道转化</li>
+                </ul>
+            </div>
+            <div class="img-box carousel-container" data-autoplay="true">
+                <div class="carousel-slides">
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/NMBryRMH/he-sheng-yuan2.png" alt="Biostime 1" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/NMBryRMH/he-sheng-yuan2.png')">查看大图</button></div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/G2KTv989/he-sheng-yuan1.png" alt="Biostime 2" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/G2KTv989/he-sheng-yuan1.png')">查看大图</button></div>
+                    </div>
+                </div>
+                <button class="carousel-btn prev">◀</button>
+                <button class="carousel-btn next">▶</button>
+                <div class="carousel-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-bg" style="background-image: url('https://images.unsplash.com/photo-1542596594-649edbc13630?w=800');"></div>
+        <div class="content-grid img-left">
+            <div class="img-box carousel-container carousel-horizontal" data-autoplay="true">
+                <div class="carousel-slides">
+                    <div class="carousel-slide">
+                        <img class="lazy-img" data-src="https://i.postimg.cc/8z7dDdJN/nong-fu-shan-quan.png" alt="Nongfu Spring 1" style="object-fit: contain; background: #111;">
+                        <div class="hover-overlay"><button class="view-detail-btn" onclick="openLightbox('https://i.postimg.cc/8z7dDdJN/nong-fu-shan-quan.png')">查看大图</button></div>
+                    </div>
+                </div>
+                <button class="carousel-btn prev">◀</button>
+                <button class="carousel-btn next">▶</button>
+                <div class="carousel-dots"></div>
+            </div>
+            <div class="project-text">
+                <p class="tag-line">BRAND STORYTELLING</p>
+                <h2 class="brand-h">农夫山泉 武夷山泡茶水</h2>
+                <span class="sub-h highlight-o">慢营销深耕品类文化叙事，固圈强建立消费者心智</span>
+                <ul>
+                    <li>泡茶需专门的水，频遭质疑“智商税”，疫情期亲自探访武夷山水源地，被困此地，远程与团队协作打磨营销方案</li>
+                    <li>提出“固圈”慢营销策略，从春日抢头茶到夏日泡入好山好水，精准抖音茶艺品茶垂类 KOL，在高端水市场存量博弈中渗透心智</li>
+                    <li>打造探寻武夷自然与人文，暨公关发布会直播，点燃京东超级品类日</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox-overlay" id="lightboxModal" onclick="closeLightbox()">
+        <button class="modal-close" onclick="closeLightbox(event)">✕</button>
+        <img id="lightboxImg" src="" alt="Enlarged Image">
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.utils.toArray('section').forEach(section => {
+            gsap.from(section.querySelectorAll('.project-text, .carousel-container, .swisse-header, .swisse-card'), {
+                scrollTrigger: { trigger: section, start: "top 80%", toggleActions: "play none none reverse" },
+                y: 50, opacity: 0, duration: 1, stagger: 0.15
+            });
+        });
+
+        gsap.utils.toArray('.section-bg').forEach(bg => {
+            gsap.to(bg, {
+                yPercent: 20, ease: "none",
+                scrollTrigger: { trigger: bg.parentElement, start: "top bottom", end: "bottom top", scrub: 0.5 }
+            });
+        });
+
+        // 【终极破解】全网兼容的安全懒加载方案
+        function initLazyLoad() {
+            const lazyImages = document.querySelectorAll('.lazy-img');
+            
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            const realSrc = img.getAttribute('data-src');
+                            if (realSrc) {
+                                // 抛弃 JS Image() 请求，直接注入 src 绕过所有限制
+                                img.src = realSrc;
+                                img.onload = () => img.classList.add('loaded');
+                                // 容错机制：就算遇到偶发错误，也强制取消模糊展示图片
+                                img.onerror = () => img.classList.add('loaded');
+                                img.removeAttribute('data-src');
+                            }
+                            observer.unobserve(img);
+                        }
+                    });
+                }, { rootMargin: "300px" }); // 提前300px加载确保流畅
+                lazyImages.forEach(img => observer.observe(img));
+            } else {
+                // 针对不支持 Observer 的老旧 Safari 强制直接渲染
+                lazyImages.forEach(img => {
+                    const realSrc = img.getAttribute('data-src');
+                    if (realSrc) { img.src = realSrc; img.classList.add('loaded'); img.removeAttribute('data-src'); }
+                });
+            }
+        }
+
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightboxModal');
+            document.getElementById('lightboxImg').src = imgSrc;
+            lightbox.classList.add('active');
+        }
+        function closeLightbox(e) {
+            if (e) e.stopPropagation();
+            document.getElementById('lightboxModal').classList.remove('active');
+            setTimeout(() => { document.getElementById('lightboxImg').src = ""; }, 300);
+        }
+
+        function initCarousels() {
+            const carousels = document.querySelectorAll('.carousel-container');
+            carousels.forEach(container => {
+                const slidesContainer = container.querySelector('.carousel-slides');
+                const slides = container.querySelectorAll('.carousel-slide');
+                const prevBtn = container.querySelector('.prev');
+                const nextBtn = container.querySelector('.next');
+                const dotsContainer = container.querySelector('.carousel-dots');
+                
+                let currentIndex = 0; let autoTimer = null;
+                const totalSlides = slides.length;
+                const autoplay = container.getAttribute('data-autoplay') === 'true';
+
+                if (totalSlides <= 1) {
+                    if (prevBtn) prevBtn.style.display = 'none';
+                    if (nextBtn) nextBtn.style.display = 'none';
+                    if (dotsContainer) dotsContainer.style.display = 'none';
+                    return; 
+                }
+
+                function generateDots() {
+                    if (!dotsContainer) return;
+                    dotsContainer.innerHTML = '';
+                    for (let i = 0; i < totalSlides; i++) {
+                        const dot = document.createElement('div');
+                        dot.classList.add('dot');
+                        if (i === currentIndex) dot.classList.add('active');
+                        dot.addEventListener('click', () => goToSlide(i));
+                        dotsContainer.appendChild(dot);
+                    }
+                }
+
+                function updateCarousel() {
+                    slidesContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+                    if (dotsContainer) {
+                        const dots = dotsContainer.querySelectorAll('.dot');
+                        dots.forEach((dot, idx) => {
+                            if (idx === currentIndex) dot.classList.add('active');
+                            else dot.classList.remove('active');
+                        });
+                    }
+                }
+
+                function goToSlide(index) {
+                    if (index < 0) index = totalSlides - 1;
+                    if (index >= totalSlides) index = 0;
+                    currentIndex = index; updateCarousel(); resetAutoPlay();
+                }
+
+                function nextSlide() { goToSlide(currentIndex + 1); }
+                function prevSlide() { goToSlide(currentIndex - 1); }
+                function startAutoPlay() {
+                    if (autoTimer) clearInterval(autoTimer);
+                    if (autoplay && totalSlides > 1) autoTimer = setInterval(nextSlide, 3000);
+                }
+                function stopAutoPlay() {
+                    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+                }
+                function resetAutoPlay() {
+                    if (autoplay && totalSlides > 1) { stopAutoPlay(); startAutoPlay(); }
+                }
+
+                if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); prevSlide(); });
+                if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); nextSlide(); });
+                
+                // 鼠标和触屏都能滑动轮播图，极度顺滑体验
+                let startX = 0; let isDragging = false;
+                
+                container.addEventListener('mouseenter', stopAutoPlay);
+                container.addEventListener('mouseleave', () => { isDragging = false; startAutoPlay(); });
+                container.addEventListener('mousedown', (e) => { isDragging = true; startX = e.pageX; });
+                container.addEventListener('mouseup', (e) => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    let diff = e.pageX - startX;
+                    if (diff > 50) prevSlide(); 
+                    else if (diff < -50) nextSlide();
+                });
+
+                container.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stopAutoPlay(); }, {passive: true});
+                container.addEventListener('touchend', (e) => {
+                    let diff = e.changedTouches[0].clientX - startX;
+                    if (diff > 50) prevSlide(); 
+                    else if (diff < -50) nextSlide();
+                    startAutoPlay();
+                });
+
+                generateDots(); updateCarousel(); startAutoPlay();
+            });
+        }
+
+        // 【重构】斯维诗板块：原生顺畅拖拽系统，针对 Safari 进行了底层兼容
+        function initSwisseDragScroll() {
+            const track = document.getElementById('swisseTrack');
+            if (!track) return;
+            
+            let isDown = false; let startX; let scrollLeft;
+
+            track.addEventListener('mousedown', (e) => {
+                isDown = true;
+                // 添加专属 class，而不是暴力改内联样式，Safari 处理得更流畅
+                track.classList.add('is-dragging'); 
+                startX = e.pageX - track.offsetLeft;
+                scrollLeft = track.scrollLeft;
+            });
+            track.addEventListener('mouseleave', () => { 
+                isDown = false; track.classList.remove('is-dragging');
+            });
+            track.addEventListener('mouseup', () => { 
+                isDown = false; track.classList.remove('is-dragging');
+            });
+            track.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault(); 
+                const x = e.pageX - track.offsetLeft;
+                const walk = (x - startX) * 1.5; 
+                track.scrollLeft = scrollLeft - walk;
+            });
+        }
+
+        // 防盗水印
+        function createWatermark(text) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 320; canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)'; 
+            ctx.font = '16px "SF Pro Display", "PingFang SC", sans-serif';
+            ctx.rotate(-20 * Math.PI / 180);
+            ctx.fillText(text, 20, 100);
+
+            const watermarkDiv = document.createElement('div');
+            watermarkDiv.style.position = 'fixed'; watermarkDiv.style.top = '0'; watermarkDiv.style.left = '0';
+            watermarkDiv.style.width = '100vw'; watermarkDiv.style.height = '100vh';
+            watermarkDiv.style.pointerEvents = 'none'; 
+            watermarkDiv.style.zIndex = '9998'; 
+            watermarkDiv.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+            document.body.appendChild(watermarkDiv);
+        }
+
+        // 防右键
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                initCarousels(); initSwisseDragScroll(); initLazyLoad(); createWatermark('Sukie作品，严禁外传');
+            });
+        } else {
+            initCarousels(); initSwisseDragScroll(); initLazyLoad(); createWatermark('Sukie作品，严禁外传');
+        }
+    </script>
+</body>
+</html>
