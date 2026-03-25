@@ -16,12 +16,7 @@
             --highlight-orange: #FF6B00;
         }
 
-        /* 强制禁止移动端浏览器自动缩放字体 */
-        html {
-            -webkit-text-size-adjust: none;
-            text-size-adjust: none;
-        }
-
+        html { -webkit-text-size-adjust: none; text-size-adjust: none; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -30,9 +25,7 @@
             color: var(--text-white);
             overflow-x: hidden;
             line-height: 1.5;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
+            -webkit-touch-callout: none; -webkit-user-select: none; user-select: none;
         }
         img { -webkit-user-drag: none; user-drag: none; pointer-events: auto; }
 
@@ -53,16 +46,10 @@
             padding: 80px 8% 40px; border-bottom: 1px solid #111; position: relative; overflow: hidden;
         }
 
-        .section-bg {
-            position: absolute; top: -15%; left: -10%; width: 120%; height: 130%;
-            background-size: cover; background-position: center; opacity: 0.12;
-            z-index: 0; filter: blur(15px); pointer-events: none;
-        }
-        
         .content-grid, .hero-content { z-index: 1; position: relative; width: 100%; }
-        .hero { text-align: center; }
+        .hero { text-align: center; margin-bottom: 80px; padding-bottom: 40px; }
         .hero-content { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .hello-title { font-size: clamp(40px, 8vw, 90px); font-weight: 800; letter-spacing: 2px; color: var(--accent-yellow); margin-bottom: 20px; }
+        .hello-title { font-size: clamp(40px, 8vw, 90px); font-weight: 800; color: var(--accent-yellow); margin-bottom: 20px; }
         .im-name { display: flex; align-items: center; justify-content: center; gap: 15px; font-size: clamp(28px, 5vw, 70px); font-weight: 800; margin-bottom: 30px; flex-wrap: wrap; }
         .avatar-box { width: clamp(70px, 9vw, 100px); height: clamp(70px, 9vw, 100px); background: #2D2D2D; border-radius: 24px; overflow: hidden; border: 2px solid #444; }
         .avatar-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -71,8 +58,6 @@
         .content-grid { display: grid; grid-template-columns: 0.9fr 1.4fr; gap: 40px; align-items: center; max-width: 1400px; }
         .content-grid.img-left { grid-template-columns: 1.4fr 0.9fr; }
 
-        .project-text { padding-right: 10px; }
-        .tag-line { color: var(--accent-yellow); font-size: 12px; font-weight: bold; margin-bottom: 8px; }
         .brand-h { font-size: clamp(20px, 2.5vw, 32px); font-weight: 800; margin-bottom: 12px; }
         .sub-h { font-size: 15px; font-weight: 600; margin-bottom: 15px; display: block; }
         ul li { position: relative; padding-left: 18px; margin-bottom: 8px; font-size: 13px; color: var(--text-gray); text-align: justify; list-style: none; line-height: 1.4; }
@@ -100,16 +85,11 @@
         }
         .carousel-btn.prev { left: 10px; }
         .carousel-btn.next { right: 10px; }
-        .carousel-dots { position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 50; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
-        .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
 
-        /* 斯维诗板块 - PC端横竖图UI */
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
             display: flex; gap: 30px; width: 100%; padding-bottom: 20px;
-            overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch; 
+            overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; 
         }
         .swisse-card { flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; scroll-snap-align: start; }
         .swisse-card-landscape { width: calc(45vh * 16 / 9); }
@@ -118,7 +98,6 @@
         .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
         .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; text-align: justify; }
 
-        /* 灯箱居中修复 */
         .lightbox-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95);
             z-index: 10000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;
@@ -131,54 +110,21 @@
         .lb-nav.next { right: 15px; }
         .lightbox-img { max-width: 90%; max-height: 85vh; object-fit: contain; }
 
-        .lazy-img { filter: blur(10px); transition: filter 0.5s; }
+        .lazy-img { filter: blur(5px); transition: filter 0.4s ease-out; }
         .lazy-img.loaded { filter: blur(0); }
 
-        .swisse-swipe-hint { display: none; }
-
-        /* ========================================= */
-        /* 移动端自适应与文字锁定 */
-        /* ========================================= */
         @media (max-width: 1024px) {
             section { min-height: auto; padding: 80px 6% 60px; }
-            
-            /* 首页底部留白修复 */
             .hero { margin-bottom: 80px; padding-bottom: 40px; }
-
             .content-grid { display: flex; flex-direction: column; gap: 20px; }
-            .content-grid.img-left { flex-direction: column-reverse; } /* 农夫山泉反转 */
-            
-            .brand-h { font-size: 22px; margin-bottom: 8px; }
-            .sub-h { font-size: 14px; margin-bottom: 10px; }
-            ul li { margin-bottom: 5px; }
+            .content-grid.img-left { flex-direction: column-reverse; }
             .carousel-container { height: 45vh; }
-            
             .swisse-card-landscape { width: calc(40vh * 16 / 9); }
             .swisse-card-portrait { width: calc(40vh * 3 / 4); }
             .swisse-card-img { height: 40vh; }
-
-            /* 彻底修复移动端斯维诗文字大小不一 */
-            .swisse-card-text { 
-                font-size: 13px !important; 
-                line-height: 1.6 !important; 
-                padding: 0 5px;
-                color: var(--text-gray);
-            }
-            .swisse-card-text b { font-size: 13px !important; color: var(--text-white); }
-
-            /* 滑动提示文字 */
-            .swisse-swipe-hint { 
-                display: block; 
-                text-align: center; 
-                font-size: 12px; 
-                color: var(--text-gray); 
-                padding: 10px 0 20px;
-                margin-top: -10px;
-                font-weight: 600;
-            }
-
+            .swisse-card-text { font-size: 13px !important; line-height: 1.6; }
+            .swisse-swipe-hint { display: block; text-align: center; font-size: 12px; color: var(--text-gray); padding: 10px 0 20px; margin-top: -10px; font-weight: 600; }
             .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; }
-            .view-detail-btn { padding: 6px 15px; font-size: 11px; }
         }
     </style>
 </head>
@@ -193,7 +139,7 @@
             <div class="hello-title">HELLO!</div>
             <div class="im-name">
                 <span>I'M</span>
-                <div class="avatar-box"><img src="https://i.ibb.co/k6Qk3Ywq/IMG-1014.png" alt="Avatar"></div>
+                <div class="avatar-box"><img src="avatar.png" alt="Avatar"></div>
                 <span>SUKIE XIE</span>
             </div>
             <div class="hero-desc">
@@ -210,25 +156,24 @@
                 <h2 class="brand-h">宝洁 品牌长期创策服务 2018 - 2022</h2>
                 <span class="sub-h">飘柔 从30周年庆到爆品上市、公益传播，突破品类消费圈层，探索美的平权</span>
                 <ul>
-                    <li>主导行业首款“免洗护发素”从0到1上市策划，面对消费者0认知的市场空白，制定“专业信任 x 场景种草”整合策略，助推新品京东搜索增长 200%，天猫搜索增长 166%</li>
-                    <li>推出「会说话的护发素」，搭建首个闭眼也能看的变美平台，并吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
+                    <li>主导行业首款“免洗护发素”从0到1上市策划，助推新品京东搜索增长 200%，天猫搜索增长 166%</li>
+                    <li>推出「会说话的护发素」，吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
                 </ul>
                 <p class="footer-text">负责海飞丝头皮健康白皮书传播、吉列新品上市&明星直播、宝洁洗发品类商超国风 CNY 营销。从深挖洞察，到专业化背书、social、线下渠道全链路营销覆盖</p>
             </div>
             <div class="carousel-container" data-gallery="pg">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/ZRBSZMPS/piao-rou1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/jdrb0vL6/piao-rou2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/nVByk703/piao-rou3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/c1wpmYXc/piao-rou4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/1XGb3h8h/piao-rou5.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/RZV24Y9d/piao-rou6.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/VsqhMwNP/piao-rou7.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/gjcR73Fq/tu-pian-1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/9fTGwWYn/bao-jie.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img src="pr1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr5.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr6.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr7.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pg1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pg2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
-                <div class="carousel-dots"></div>
             </div>
         </div>
     </section>
@@ -238,19 +183,19 @@
             <div class="swisse-header"><p class="tag-line">LIFESTYLE & SOCIAL</p><h2 class="brand-h">斯维诗</h2></div>
             <div class="swisse-scroll-track" data-gallery="swisse">
                 <div class="swisse-card swisse-card-landscape">
-                    <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img src="sws1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text"><b>保健品=老登? NO!</b> 围绕时尚健康新叙事，借势三八节发起「万物皆可斯维诗」小红书全名共创，打破刻板印象。</div>
                 </div>
                 <div class="swisse-card swisse-card-portrait">
-                    <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/DzZ15rht/si-wei-shi1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img class="lazy-img" data-src="sws2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text">成功引领胶原水光瓶成为社交媒体“新时尚”，<b>实现从功能性向生活方式的强势破圈</b>。</div>
                 </div>
                 <div class="swisse-card swisse-card-landscape">
-                    <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/XvzdPr7X/dan-bai-fen3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img class="lazy-img" data-src="dbf1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text">切入时尚运动赛道，携手冲浪垂类圈层，<b>将蛋白粉打造成时尚运动圈层新宠</b>。</div>
                 </div>
                 <div class="swisse-card swisse-card-portrait">
-                    <div class="swisse-card-img"><img class="lazy-img" data-src="https://i.postimg.cc/50QLWf6Y/dan-bai-fen4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img class="lazy-img" data-src="dbf2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text">于三亚万宁落地「浪尖 S 俱乐部」快闪活动，以“强种草+天猫超市周年庆联动”驱动传播爆发，<b>达成总曝光 7700W+ 次</b>。</div>
                 </div>
             </div>
@@ -264,17 +209,17 @@
                 <p class="tag-line">ENTERTAINMENT MARKETING</p>
                 <h2 class="brand-h">合生元 <span style="color:var(--highlight-orange)">品牌年轻化和综艺IP营销</span></h2>
                 <ul>
-                    <li>为品牌焕新「妈妈少担心」主体性表达，策划综艺《披荆斩棘哥哥》《乘风破浪姐姐》植入营销，相关视频播放量高达 2.1 亿，全网总曝光 7.4 亿</li>
-                    <li>针对核心母婴店，策划每月“奶粉+营养品”销冠组合活动，以品牌理念 x 亲子体验双赋能渠道转化</li>
+                    <li>为品牌焕新「妈妈少担心」主体性表达，策划综艺《披荆斩棘哥哥》《乘风破浪姐姐》植入营销，全网总曝光 7.4 亿</li>
+                    <li>策划每月“销冠组合”活动，以品牌理念 x 亲子体验双赋能渠道转化</li>
                 </ul>
             </div>
             <div class="carousel-container" data-gallery="biostime">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/NMBryRMH/he-sheng-yuan2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/G2KTv989/he-sheng-yuan1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img src="hsy1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="hsy2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="hsy3.jpg"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
-                <div class="carousel-dots"></div>
             </div>
         </div>
     </section>
@@ -283,16 +228,15 @@
         <div class="content-grid img-left">
             <div class="carousel-container" data-gallery="nongfu">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img class="lazy-img" data-src="https://i.postimg.cc/8z7dDdJN/nong-fu-shan-quan.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img src="nfsq.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
-                <div class="carousel-dots"></div>
             </div>
             <div class="project-text">
                 <p class="tag-line">BRAND STORYTELLING</p>
                 <h2 class="brand-h">农夫山泉 武夷山泡茶水</h2>
                 <span class="sub-h" style="color:var(--highlight-orange)">慢营销深耕品类文化叙事，固圈强建立消费者心智</span>
                 <ul>
-                    <li>疫情期亲自探访武夷山水源地，提出“固圈”慢营销策略，精准抖音茶艺品茶垂类 KOL，在高端水市场存量博弈中渗透心智</li>
+                    <li>提出“固圈”慢营销策略，精准抖音茶艺品茶垂类 KOL，在高端水市场存量博弈中渗透心智</li>
                     <li>打造探寻武夷自然与人文公关发布会直播，点燃京东超级品类日</li>
                 </ul>
             </div>
@@ -314,7 +258,6 @@
                 y: 30, opacity: 0, duration: 0.8, stagger: 0.1
             });
         });
-
         function initLazyLoad() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(en => {
@@ -325,27 +268,15 @@
                         obs.unobserve(img);
                     }
                 });
-            }, {rootMargin: "300px"});
+            }, {rootMargin: "400px"});
             document.querySelectorAll('.lazy-img').forEach(img => obs.observe(img));
         }
-
         function initCarousels() {
             document.querySelectorAll('.carousel-container').forEach(con => {
                 const slides = con.querySelector('.carousel-slides');
                 const total = slides.children.length;
-                const dotsCon = con.querySelector('.carousel-dots');
                 let idx = 0;
-                if(total > 1 && dotsCon) {
-                    for(let i=0; i<total; i++) {
-                        const dot = document.createElement('div');
-                        dot.className = 'dot' + (i===0?' active':'');
-                        dotsCon.appendChild(dot);
-                    }
-                }
-                const update = () => {
-                    slides.style.transform = `translateX(-${idx*100}%)`;
-                    if(dotsCon) dotsCon.querySelectorAll('.dot').forEach((d,i) => d.className = i===idx?'dot active':'dot');
-                };
+                const update = () => slides.style.transform = `translateX(-${idx*100}%)`;
                 con.querySelector('.prev')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx-1+total)%total; update(); });
                 con.querySelector('.next')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx+1)%total; update(); });
                 let sX = 0;
@@ -356,14 +287,13 @@
                 });
             });
         }
-
         function initGalleryLightbox() {
             const lb = document.getElementById('lbOverlay');
             const lbImg = document.getElementById('lbImg');
             let currentImgs = []; let currentIdx = 0;
             const openLb = (galleryId, startSrc) => {
                 const container = document.querySelector(`[data-gallery="${galleryId}"]`);
-                currentImgs = Array.from(container.querySelectorAll('.lazy-img')).map(i => i.getAttribute('data-src') || i.src);
+                currentImgs = Array.from(container.querySelectorAll('img')).map(i => i.getAttribute('data-src') || i.src);
                 currentIdx = currentImgs.indexOf(startSrc);
                 lbImg.src = currentImgs[currentIdx];
                 lb.classList.add('active');
@@ -373,7 +303,7 @@
                 btn.onclick = (e) => {
                     e.stopPropagation();
                     const con = btn.closest('[data-gallery]');
-                    const img = btn.closest('.carousel-slide, .swisse-card').querySelector('img');
+                    const img = btn.closest('.carousel-slide, .swisse-card, .swisse-card-img').querySelector('img');
                     openLb(con.dataset.gallery, img.getAttribute('data-src') || img.src);
                 };
             });
@@ -392,23 +322,24 @@
                 if(Math.abs(dX) > 50) show(dX > 0 ? -1 : 1);
             });
         }
-
-        function addWatermark() {
-            const c = document.createElement('canvas');
-            c.width = 250; c.height = 150;
-            const ctx = c.getContext('2d');
-            ctx.fillStyle = 'rgba(255,255,255,0.05)';
-            ctx.font = '14px sans-serif';
-            ctx.rotate(-20*Math.PI/180);
-            ctx.fillText('Sukie作品，严禁外传', 20, 80);
-            const div = document.createElement('div');
-            div.style = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;background:url('+c.toDataURL()+')';
-            document.body.appendChild(div);
+        function createWatermark(text) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 320; canvas.height = 200;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)'; 
+            ctx.font = '16px sans-serif';
+            ctx.rotate(-20 * Math.PI / 180);
+            ctx.fillText(text, 20, 100);
+            const watermarkDiv = document.createElement('div');
+            watermarkDiv.style.position = 'fixed'; watermarkDiv.style.top = '0'; watermarkDiv.style.left = '0';
+            watermarkDiv.style.width = '100vw'; watermarkDiv.style.height = '100vh';
+            watermarkDiv.style.pointerEvents = 'none'; watermarkDiv.style.zIndex = '9998'; 
+            watermarkDiv.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+            document.body.appendChild(watermarkDiv);
         }
-
         window.onload = () => {
             initLazyLoad(); initCarousels(); initGalleryLightbox();
-            addWatermark();
+            createWatermark('Sukie作品，严禁外传');
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
     </script>
