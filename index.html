@@ -60,7 +60,7 @@
 
         .brand-h { font-size: clamp(20px, 2.5vw, 32px); font-weight: 800; margin-bottom: 12px; }
         .sub-h { font-size: 15px; font-weight: 600; margin-bottom: 15px; display: block; }
-        ul li { position: relative; padding-left: 18px; margin-bottom: 8px; font-size: 13px; color: var(--text-gray); text-align: justify; list-style: none; line-height: 1.4; }
+        ul li { position: relative; padding-left: 18px; margin-bottom: 8px; font-size: 13px; color: var(--text-gray); text-align: justify; line-height: 1.4; }
         ul li::before { content: "•"; position: absolute; left: 0; color: var(--highlight-orange); font-weight: bold; }
         .footer-text { font-size: 12px; color: var(--text-gray); border-top: 1px solid #222; padding-top: 12px; line-height: 1.4; }
 
@@ -139,7 +139,7 @@
             <div class="hello-title">HELLO!</div>
             <div class="im-name">
                 <span>I'M</span>
-                <div class="avatar-box"><img src="avatar.png" alt="Avatar"></div>
+                <div class="avatar-box"><img src="https://i.ibb.co/k6Qk3Ywq/IMG-1014.png" alt="Avatar"></div>
                 <span>SUKIE XIE</span>
             </div>
             <div class="hero-desc">
@@ -157,7 +157,7 @@
                 <span class="sub-h">飘柔 从30周年庆到爆品上市、公益传播，突破品类消费圈层，探索美的平权</span>
                 <ul>
                     <li>主导行业首款“免洗护发素”从0到1上市策划，助推新品京东搜索增长 200%，天猫搜索增长 166%</li>
-                    <li>推出「会说话的护发素」，吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
+                    <li>推出「会说话的护发素」，搭建首个闭眼也能看的变美平台，并吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
                 </ul>
                 <p class="footer-text">负责海飞丝头皮健康白皮书传播、吉列新品上市&明星直播、宝洁洗发品类商超国风 CNY 营销。从深挖洞察，到专业化背书、social、线下渠道全链路营销覆盖</p>
             </div>
@@ -210,7 +210,7 @@
                 <h2 class="brand-h">合生元 <span style="color:var(--highlight-orange)">品牌年轻化和综艺IP营销</span></h2>
                 <ul>
                     <li>为品牌焕新「妈妈少担心」主体性表达，策划综艺《披荆斩棘哥哥》《乘风破浪姐姐》植入营销，全网总曝光 7.4 亿</li>
-                    <li>策划每月“销冠组合”活动，以品牌理念 x 亲子体验双赋能渠道转化</li>
+                    <li>针对核心母婴店，策划每月“奶粉+营养品”销冠组合活动，以品牌理念 x 亲子体验双赋能渠道转化</li>
                 </ul>
             </div>
             <div class="carousel-container" data-gallery="biostime">
@@ -258,24 +258,33 @@
                 y: 30, opacity: 0, duration: 0.8, stagger: 0.1
             });
         });
+
+        // 增强版容错懒加载脚本
         function initLazyLoad() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(en => {
                     if(en.isIntersecting) {
                         const img = en.target;
-                        img.src = img.getAttribute('data-src');
-                        img.onload = () => img.classList.add('loaded');
+                        const realSrc = img.getAttribute('data-src');
+                        if (realSrc) {
+                            img.src = realSrc;
+                            img.onload = () => img.classList.add('loaded');
+                            // 强制容错：3秒后即使不触发onload也取消模糊
+                            setTimeout(() => img.classList.add('loaded'), 3000);
+                        }
                         obs.unobserve(img);
                     }
                 });
-            }, {rootMargin: "400px"});
+            }, {rootMargin: "500px"});
             document.querySelectorAll('.lazy-img').forEach(img => obs.observe(img));
         }
+
         function initCarousels() {
             document.querySelectorAll('.carousel-container').forEach(con => {
                 const slides = con.querySelector('.carousel-slides');
                 const total = slides.children.length;
                 let idx = 0;
+                if(total <= 1) return;
                 const update = () => slides.style.transform = `translateX(-${idx*100}%)`;
                 con.querySelector('.prev')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx-1+total)%total; update(); });
                 con.querySelector('.next')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx+1)%total; update(); });
@@ -287,6 +296,7 @@
                 });
             });
         }
+
         function initGalleryLightbox() {
             const lb = document.getElementById('lbOverlay');
             const lbImg = document.getElementById('lbImg');
@@ -315,13 +325,8 @@
             document.getElementById('lbNext').onclick = (e) => { e.stopPropagation(); show(1); };
             document.getElementById('lbClose').onclick = () => { lb.classList.remove('active'); document.body.style.overflow=''; };
             lb.onclick = (e) => { if(e.target === lb || e.target.className === 'lightbox-content') document.getElementById('lbClose').click(); };
-            let sX = 0;
-            lb.addEventListener('touchstart', e => sX = e.touches[0].clientX, {passive:true});
-            lb.addEventListener('touchend', e => {
-                let dX = e.changedTouches[0].clientX - sX;
-                if(Math.abs(dX) > 50) show(dX > 0 ? -1 : 1);
-            });
         }
+
         function createWatermark(text) {
             const canvas = document.createElement('canvas');
             canvas.width = 320; canvas.height = 200;
@@ -330,13 +335,14 @@
             ctx.font = '16px sans-serif';
             ctx.rotate(-20 * Math.PI / 180);
             ctx.fillText(text, 20, 100);
-            const watermarkDiv = document.createElement('div');
-            watermarkDiv.style.position = 'fixed'; watermarkDiv.style.top = '0'; watermarkDiv.style.left = '0';
-            watermarkDiv.style.width = '100vw'; watermarkDiv.style.height = '100vh';
-            watermarkDiv.style.pointerEvents = 'none'; watermarkDiv.style.zIndex = '9998'; 
-            watermarkDiv.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
-            document.body.appendChild(watermarkDiv);
+            const div = document.createElement('div');
+            div.style.position = 'fixed'; div.style.top = '0'; div.style.left = '0';
+            div.style.width = '100vw'; div.style.height = '100vh';
+            div.style.pointerEvents = 'none'; div.style.zIndex = '9998'; 
+            div.style.backgroundImage = `url(${canvas.toDataURL('image/png')})`;
+            document.body.appendChild(div);
         }
+
         window.onload = () => {
             initLazyLoad(); initCarousels(); initGalleryLightbox();
             createWatermark('Sukie作品，严禁外传');
