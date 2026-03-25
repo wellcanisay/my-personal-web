@@ -88,6 +88,28 @@
         }
         .carousel-btn.prev { left: 10px; }
         .carousel-btn.next { right: 10px; }
+        .carousel-dots { position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 50; }
+        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
+        .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
+
+        /* ======== 飘柔专属纵向排版 & 苹果滑块 UI ======== */
+        .stacked-layout { max-width: 1000px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 35px; z-index: 1; position: relative;}
+        .stacked-text { width: 100%; }
+        .stacked-layout .carousel-container { height: 60vh; }
+        
+        .apple-gallery-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .apple-carousel-container {
+            position: relative; width: 100%; height: 60vh; overflow: hidden; border-radius: 20px;
+            background: #111; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .apple-pills { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+        .apple-pills .pill {
+            background: #333; color: #aaa; border: none; padding: 6px 20px; border-radius: 20px;
+            font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;
+        }
+        .apple-pills .pill.active { background: #fff; color: #000; }
+        .apple-pills .pill:hover:not(.active) { background: #555; color: #fff; }
+        /* ============================================== */
 
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
@@ -122,6 +144,12 @@
             .hero { margin-bottom: 80px; padding-bottom: 40px; }
             .content-grid { display: flex; flex-direction: column; gap: 20px; }
             .content-grid.img-left { flex-direction: column-reverse; }
+            
+            /* 适配苹果风堆叠排版移动端 */
+            .stacked-layout { gap: 25px; }
+            .stacked-layout .carousel-container, .apple-carousel-container { height: 35vh; }
+            .apple-pills .pill { padding: 5px 15px; font-size: 12px; }
+
             .carousel-container { height: 45vh; }
             .swisse-card-landscape { width: calc(40vh * 16 / 9); }
             .swisse-card-portrait { width: calc(40vh * 3 / 4); }
@@ -157,30 +185,73 @@
     </section>
 
     <section>
-        <div class="content-grid">
-            <div class="project-text">
+        <div class="stacked-layout">
+            
+            <div class="stacked-text">
                 <h2 class="brand-h">宝洁 品牌长期创策服务 2018 - 2022</h2>
                 <span class="sub-h">飘柔 从30周年庆到爆品上市、公益传播，突破品类消费圈层，探索美的平权</span>
-                <ul>
-                    <li>主导行业首款“免洗护发素”从0到1上市策划，面对消费者认知的市场空白，制定“专业信任x场景种草”整合策略，打造「百试不腻吉尼斯挑战事件」「高考营销18岁的美只有一次」等案例，助推新品京东搜索增长 200%，天猫搜索增长166%</li>
-                    <li>视障人群对美的需求几乎无人关注，打破常规以免洗新品解开美的盲区，推出「会说话的护发素」，搭建首个闭眼也能看的变美平台，并吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
-                </ul>
-                <p class="sub-h" style="border-top: 1px solid #222; padding-top: 15px; margin-top: 10px;">负责海飞丝头皮健康白皮书传播、吉列新品上市&明星直播、宝洁洗发品类商超国风 CNY 营销。从深挖洞察，到专业化背书、social、线下渠道全链路营销覆盖</p>
             </div>
-            <div class="carousel-container" data-gallery="pg">
+            <div class="carousel-container" data-gallery="pg-1">
                 <div class="carousel-slides">
                     <div class="carousel-slide"><img src="pr1.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/ZRBSZMPS/piao-rou1.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="carousel-slide"><img class="lazy-img" data-src="pr2.png" data-fallback="https://i.postimg.cc/jdrb0vL6/piao-rou2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr3.png" data-fallback="https://i.postimg.cc/nVByk703/piao-rou3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr4.png" data-fallback="https://i.postimg.cc/c1wpmYXc/piao-rou4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr5.png" data-fallback="https://i.postimg.cc/1XGb3h8h/piao-rou5.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr6.png" data-fallback="https://i.postimg.cc/RZV24Y9d/piao-rou6.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr7.png" data-fallback="https://i.postimg.cc/VsqhMwNP/piao-rou7.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                </div>
+                <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
+                <div class="carousel-dots"></div>
+            </div>
+
+            <div class="stacked-text">
+                <ul>
+                    <li>主导行业首款“免洗护发素”从0到1上市策划，面对消费者认知的市场空白，制定“专业信任x场景种草”整合策略，打造「百试不腻吉尼斯挑战事件」「高考营销18岁的美只有一次」等案例，助推新品京东搜索增长 200%，天猫搜索增长166%</li>
+                </ul>
+            </div>
+            <div class="apple-gallery-wrapper">
+                <div class="apple-carousel-container" data-gallery="pg-2">
+                    <div class="carousel-slides">
+                        <div class="carousel-slide"><img class="lazy-img" data-src="pr3.png" data-fallback="https://i.postimg.cc/nVByk703/piao-rou3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                        <div class="carousel-slide"><img class="lazy-img" data-src="pr4.png" data-fallback="https://i.postimg.cc/c1wpmYXc/piao-rou4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                        <div class="carousel-slide"><img class="lazy-img" data-src="pr5.png" data-fallback="https://i.postimg.cc/1XGb3h8h/piao-rou5.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                        <div class="carousel-slide"><img class="lazy-img" data-src="pr7.png" data-fallback="https://i.postimg.cc/VsqhMwNP/piao-rou7.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    </div>
+                </div>
+                <div class="apple-pills">
+                    <button class="pill active">1</button>
+                    <button class="pill">2</button>
+                    <button class="pill">3</button>
+                    <button class="pill">4</button>
+                </div>
+            </div>
+
+            <div class="stacked-text">
+                <ul>
+                    <li>视障人群对美的需求几乎无人关注，打破常规以免洗新品解开美的盲区，推出「会说话的护发素」，搭建首个闭眼也能看的变美平台，并吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
+                </ul>
+            </div>
+            <div class="apple-gallery-wrapper">
+                <div class="apple-carousel-container" data-gallery="pg-3">
+                    <div class="carousel-slides">
+                        <div class="carousel-slide"><img class="lazy-img" data-src="pr6.png" data-fallback="https://i.postimg.cc/RZV24Y9d/piao-rou6.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                        <div class="carousel-slide"><img class="lazy-img" data-src="pr8.jpg"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    </div>
+                </div>
+                <div class="apple-pills">
+                    <button class="pill active">1</button>
+                    <button class="pill">2</button>
+                </div>
+            </div>
+
+            <div class="stacked-text">
+                <p class="sub-h" style="border-top: 1px solid #222; padding-top: 15px; margin-top: 10px;">负责海飞丝头皮健康白皮书传播、吉列新品上市&明星直播、宝洁洗发品类商超国风 CNY 营销。从深挖洞察，到专业化背书、social、线下渠道全链路营销覆盖</p>
+            </div>
+            <div class="carousel-container" data-gallery="pg-4">
+                <div class="carousel-slides">
                     <div class="carousel-slide"><img class="lazy-img" data-src="pg1.png" data-fallback="https://i.postimg.cc/gjcR73Fq/tu-pian-1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="carousel-slide"><img class="lazy-img" data-src="pg2.png" data-fallback="https://i.postimg.cc/9fTGwWYn/bao-jie.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
+                <div class="carousel-dots"></div>
             </div>
+
         </div>
     </section>
 
@@ -226,6 +297,7 @@
                     <div class="carousel-slide"><img class="lazy-img" data-src="hsy3.jpg"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
+                <div class="carousel-dots"></div>
             </div>
         </div>
     </section>
@@ -287,17 +359,77 @@
             document.querySelectorAll('.carousel-container').forEach(con => {
                 const slides = con.querySelector('.carousel-slides');
                 const total = slides.children.length;
+                const dotsCon = con.querySelector('.carousel-dots');
                 let idx = 0;
-                if(total <= 1) return;
-                const update = () => slides.style.transform = `translateX(-${idx*100}%)`;
+                
+                if (total <= 1) return;
+                
+                if (dotsCon) {
+                    for(let i=0; i<total; i++) {
+                        const dot = document.createElement('div');
+                        dot.className = 'dot' + (i===0?' active':'');
+                        dotsCon.appendChild(dot);
+                    }
+                }
+
+                const update = () => {
+                    slides.style.transform = `translateX(-${idx*100}%)`;
+                    if (dotsCon) dotsCon.querySelectorAll('.dot').forEach((d,i) => d.className = i===idx?'dot active':'dot');
+                };
+
                 con.querySelector('.prev')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx-1+total)%total; update(); });
                 con.querySelector('.next')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx+1)%total; update(); });
+                
                 let sX = 0;
                 con.addEventListener('touchstart', (e) => sX = e.touches[0].clientX, {passive:true});
                 con.addEventListener('touchend', (e) => {
                     let dX = e.changedTouches[0].clientX - sX;
                     if(Math.abs(dX) > 50) { if(dX > 0) idx=(idx-1+total)%total; else idx=(idx+1)%total; update(); }
                 });
+            });
+        }
+
+        // 全新的苹果风滑块专属逻辑
+        function initAppleCarousels() {
+            document.querySelectorAll('.apple-gallery-wrapper').forEach(wrapper => {
+                const slides = wrapper.querySelector('.carousel-slides');
+                const total = slides.children.length;
+                const pills = wrapper.querySelectorAll('.apple-pills .pill');
+                let idx = 0;
+                let autoPlayTimer;
+
+                const update = () => {
+                    slides.style.transform = `translateX(-${idx * 100}%)`;
+                    pills.forEach((pill, i) => pill.classList.toggle('active', i === idx));
+                };
+
+                const startAutoPlay = () => {
+                    stopAutoPlay();
+                    autoPlayTimer = setInterval(() => { idx = (idx + 1) % total; update(); }, 4500); // 4.5秒平缓轮播
+                };
+                const stopAutoPlay = () => clearInterval(autoPlayTimer);
+
+                pills.forEach((pill, i) => {
+                    pill.addEventListener('click', () => { idx = i; update(); startAutoPlay(); });
+                });
+
+                let sX = 0;
+                const con = wrapper.querySelector('.apple-carousel-container');
+                con.addEventListener('touchstart', (e) => { sX = e.touches[0].clientX; stopAutoPlay(); }, {passive:true});
+                con.addEventListener('touchend', (e) => {
+                    let dX = e.changedTouches[0].clientX - sX;
+                    if(Math.abs(dX) > 50) {
+                        if(dX > 0) idx = (idx - 1 + total) % total;
+                        else idx = (idx + 1) % total;
+                        update();
+                    }
+                    startAutoPlay();
+                });
+
+                wrapper.addEventListener('mouseenter', stopAutoPlay);
+                wrapper.addEventListener('mouseleave', startAutoPlay);
+
+                startAutoPlay(); // 启动
             });
         }
 
@@ -352,8 +484,9 @@
             try {
                 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                     gsap.registerPlugin(ScrollTrigger);
+                    // 确保新的排版类也能触发进入动画
                     gsap.utils.toArray('section').forEach(sec => {
-                        gsap.from(sec.querySelectorAll('.project-text, .carousel-container, .swisse-wrapper'), {
+                        gsap.from(sec.querySelectorAll('.project-text, .carousel-container, .swisse-wrapper, .stacked-text, .apple-gallery-wrapper'), {
                             scrollTrigger: { trigger: sec, start: "top 85%" },
                             y: 30, opacity: 0, duration: 0.8, stagger: 0.1
                         });
@@ -363,7 +496,7 @@
                 console.warn("外部动画库加载被拦截，已自动启动备用显示方案");
             }
 
-            initLazyLoad(); initCarousels(); initGalleryLightbox();
+            initLazyLoad(); initCarousels(); initAppleCarousels(); initGalleryLightbox();
             createWatermark('Sukie作品，严禁外传');
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
