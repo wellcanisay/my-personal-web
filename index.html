@@ -420,7 +420,6 @@
                     slides.style.transform = `translateX(-${idx * 100}%)`;
                     pills.forEach((pill, i) => {
                         pill.classList.toggle('active', i === idx);
-                        // 彻底解决 Bug 1 页面乱跳：仅对水平滑动容器本身做精确滑动，彻底弃用 scrollIntoView
                         if (i === idx && pillsWrapper) {
                             const scrollPos = pill.offsetLeft - (pillsWrapper.clientWidth / 2) + (pill.clientWidth / 2);
                             pillsWrapper.scrollTo({ left: scrollPos, behavior: 'smooth' });
