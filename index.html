@@ -112,6 +112,7 @@
 
         .lazy-img { filter: blur(5px); transition: filter 0.4s ease-out; }
         .lazy-img.loaded { filter: blur(0); }
+        .swisse-swipe-hint { display: none; }
 
         @media (max-width: 1024px) {
             section { min-height: auto; padding: 80px 6% 60px; }
@@ -122,9 +123,11 @@
             .swisse-card-landscape { width: calc(40vh * 16 / 9); }
             .swisse-card-portrait { width: calc(40vh * 3 / 4); }
             .swisse-card-img { height: 40vh; }
-            .swisse-card-text { font-size: 13px !important; line-height: 1.6; }
+            .swisse-card-text { font-size: 13px !important; line-height: 1.6 !important; }
+            .swisse-card-text b { font-size: 13px !important; color: var(--text-white); }
             .swisse-swipe-hint { display: block; text-align: center; font-size: 12px; color: var(--text-gray); padding: 10px 0 20px; margin-top: -10px; font-weight: 600; }
             .hover-overlay { opacity: 1; background: none; align-items: flex-end; justify-content: flex-end; padding: 15px; }
+            .view-detail-btn { padding: 6px 15px; font-size: 11px; }
         }
     </style>
 </head>
@@ -157,21 +160,21 @@
                 <span class="sub-h">飘柔 从30周年庆到爆品上市、公益传播，突破品类消费圈层，探索美的平权</span>
                 <ul>
                     <li>主导行业首款“免洗护发素”从0到1上市策划，助推新品京东搜索增长 200%，天猫搜索增长 166%</li>
-                    <li>推出「会说话的护发素」，搭建首个闭眼也能看的变美平台，并吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
+                    <li>推出「会说话的护发素」，吸引头部主播【李佳琦亲自选品】直播推荐，一举打破新品市场僵局</li>
                 </ul>
                 <p class="footer-text">负责海飞丝头皮健康白皮书传播、吉列新品上市&明星直播、宝洁洗发品类商超国风 CNY 营销。从深挖洞察，到专业化背书、social、线下渠道全链路营销覆盖</p>
             </div>
             <div class="carousel-container" data-gallery="pg">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img src="pr1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr5.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr6.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pr7.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pg1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="pg2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img src="pr1.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/ZRBSZMPS/piao-rou1.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr2.png" data-fallback="https://i.postimg.cc/jdrb0vL6/piao-rou2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr3.png" data-fallback="https://i.postimg.cc/nVByk703/piao-rou3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr4.png" data-fallback="https://i.postimg.cc/c1wpmYXc/piao-rou4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr5.png" data-fallback="https://i.postimg.cc/1XGb3h8h/piao-rou5.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr6.png" data-fallback="https://i.postimg.cc/RZV24Y9d/piao-rou6.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr7.png" data-fallback="https://i.postimg.cc/VsqhMwNP/piao-rou7.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pg1.png" data-fallback="https://i.postimg.cc/gjcR73Fq/tu-pian-1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pg2.png" data-fallback="https://i.postimg.cc/9fTGwWYn/bao-jie.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
             </div>
@@ -183,19 +186,19 @@
             <div class="swisse-header"><p class="tag-line">LIFESTYLE & SOCIAL</p><h2 class="brand-h">斯维诗</h2></div>
             <div class="swisse-scroll-track" data-gallery="swisse">
                 <div class="swisse-card swisse-card-landscape">
-                    <div class="swisse-card-img"><img src="sws1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img src="sws1.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text"><b>保健品=老登? NO!</b> 围绕时尚健康新叙事，借势三八节发起「万物皆可斯维诗」小红书全名共创，打破刻板印象。</div>
                 </div>
                 <div class="swisse-card swisse-card-portrait">
-                    <div class="swisse-card-img"><img class="lazy-img" data-src="sws2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img class="lazy-img" data-src="sws2.png" data-fallback="https://i.postimg.cc/DzZ15rht/si-wei-shi1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text">成功引领胶原水光瓶成为社交媒体“新时尚”，<b>实现从功能性向生活方式的强势破圈</b>。</div>
                 </div>
                 <div class="swisse-card swisse-card-landscape">
-                    <div class="swisse-card-img"><img class="lazy-img" data-src="dbf1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img class="lazy-img" data-src="dbf1.png" data-fallback="https://i.postimg.cc/XvzdPr7X/dan-bai-fen3.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text">切入时尚运动赛道，携手冲浪垂类圈层，<b>将蛋白粉打造成时尚运动圈层新宠</b>。</div>
                 </div>
                 <div class="swisse-card swisse-card-portrait">
-                    <div class="swisse-card-img"><img class="lazy-img" data-src="dbf2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img class="lazy-img" data-src="dbf2.png" data-fallback="https://i.postimg.cc/50QLWf6Y/dan-bai-fen4.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text">于三亚万宁落地「浪尖 S 俱乐部」快闪活动，以“强种草+天猫超市周年庆联动”驱动传播爆发，<b>达成总曝光 7700W+ 次</b>。</div>
                 </div>
             </div>
@@ -215,8 +218,8 @@
             </div>
             <div class="carousel-container" data-gallery="biostime">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img src="hsy1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="hsy2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img src="hsy1.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/NMBryRMH/he-sheng-yuan2.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="hsy2.png" data-fallback="https://i.postimg.cc/G2KTv989/he-sheng-yuan1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="carousel-slide"><img class="lazy-img" data-src="hsy3.jpg"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
@@ -228,7 +231,7 @@
         <div class="content-grid img-left">
             <div class="carousel-container" data-gallery="nongfu">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img src="nfsq.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img src="nfsq.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/8z7dDdJN/nong-fu-shan-quan.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
             </div>
             <div class="project-text">
@@ -251,25 +254,25 @@
     </div>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray('section').forEach(sec => {
-            gsap.from(sec.querySelectorAll('.project-text, .carousel-container, .swisse-wrapper'), {
-                scrollTrigger: { trigger: sec, start: "top 85%" },
-                y: 30, opacity: 0, duration: 0.8, stagger: 0.1
-            });
-        });
-
-        // 增强版容错懒加载脚本
+        // 【防弹级】双通道懒加载：本地图失效立刻读外链
         function initLazyLoad() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(en => {
                     if(en.isIntersecting) {
                         const img = en.target;
                         const realSrc = img.getAttribute('data-src');
+                        const fallbackSrc = img.getAttribute('data-fallback');
                         if (realSrc) {
                             img.src = realSrc;
                             img.onload = () => img.classList.add('loaded');
-                            // 强制容错：3秒后即使不触发onload也取消模糊
+                            img.onerror = () => {
+                                // 如果本地库没跑通，且配置了外链备用库，立刻切换！
+                                if (fallbackSrc && img.src.indexOf(fallbackSrc) === -1) {
+                                    img.src = fallbackSrc;
+                                }
+                                img.classList.add('loaded'); // 强制撤销模糊效果
+                            };
+                            // 终极保护：不管成没成功，3秒后强行取消模糊
                             setTimeout(() => img.classList.add('loaded'), 3000);
                         }
                         obs.unobserve(img);
@@ -303,8 +306,9 @@
             let currentImgs = []; let currentIdx = 0;
             const openLb = (galleryId, startSrc) => {
                 const container = document.querySelector(`[data-gallery="${galleryId}"]`);
-                currentImgs = Array.from(container.querySelectorAll('img')).map(i => i.getAttribute('data-src') || i.src);
+                currentImgs = Array.from(container.querySelectorAll('img')).map(i => i.src || i.getAttribute('data-src'));
                 currentIdx = currentImgs.indexOf(startSrc);
+                if (currentIdx === -1) currentIdx = 0; // 容错
                 lbImg.src = currentImgs[currentIdx];
                 lb.classList.add('active');
                 document.body.style.overflow = 'hidden';
@@ -314,7 +318,7 @@
                     e.stopPropagation();
                     const con = btn.closest('[data-gallery]');
                     const img = btn.closest('.carousel-slide, .swisse-card, .swisse-card-img').querySelector('img');
-                    openLb(con.dataset.gallery, img.getAttribute('data-src') || img.src);
+                    openLb(con.dataset.gallery, img.src || img.getAttribute('data-src'));
                 };
             });
             const show = (dir) => {
@@ -344,6 +348,21 @@
         }
 
         window.onload = () => {
+            // 【防弹级】安全拦截：即便国内手机运营商拦截了动画库，网页核心功能也绝不坠毁罢工
+            try {
+                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                    gsap.registerPlugin(ScrollTrigger);
+                    gsap.utils.toArray('section').forEach(sec => {
+                        gsap.from(sec.querySelectorAll('.project-text, .carousel-container, .swisse-wrapper'), {
+                            scrollTrigger: { trigger: sec, start: "top 85%" },
+                            y: 30, opacity: 0, duration: 0.8, stagger: 0.1
+                        });
+                    });
+                }
+            } catch (error) {
+                console.warn("外部动画库加载被拦截，已自动启动备用显示方案");
+            }
+
             initLazyLoad(); initCarousels(); initGalleryLightbox();
             createWatermark('Sukie作品，严禁外传');
             document.addEventListener('contextmenu', e => e.preventDefault());
