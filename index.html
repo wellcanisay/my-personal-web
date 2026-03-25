@@ -68,7 +68,8 @@
         .footer-text { font-size: 12px; color: var(--text-gray); border-top: 1px solid #222; padding-top: 12px; line-height: 1.4; }
 
         .carousel-container {
-            position: relative; width: 100%; height: 70vh; overflow: hidden; border-radius: 20px;
+            position: relative; width: 100%; height: 70vh; overflow: hidden; 
+            border-radius: 24px; /* 统一软切角 */
             background: #111; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .carousel-slides { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease; }
@@ -92,23 +93,36 @@
         .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); transition: background 0.3s; }
         .dot.active { background: var(--accent-yellow); width: 12px; border-radius: 3px; }
 
-        /* ======== 飘柔专属纵向排版 & 苹果滑块 UI ======== */
-        .stacked-layout { max-width: 1000px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 35px; z-index: 1; position: relative;}
+        /* ======== 飘柔专属苹果风排版与胶囊UI ======== */
+        .stacked-layout { max-width: 1000px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 40px; z-index: 1; position: relative;}
         .stacked-text { width: 100%; }
-        .stacked-layout .carousel-container { height: 60vh; }
+        .stacked-layout .carousel-container { height: 60vh; border-radius: 24px; }
         
         .apple-gallery-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; }
         .apple-carousel-container {
-            position: relative; width: 100%; height: 60vh; overflow: hidden; border-radius: 20px;
+            position: relative; width: 100%; height: 60vh; overflow: hidden; 
+            border-radius: 24px; /* 统一软切角 */
             background: #111; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-        .apple-pills { display: flex; justify-content: center; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
-        .apple-pills .pill {
-            background: #333; color: #aaa; border: none; padding: 6px 20px; border-radius: 20px;
-            font-size: 13px; font-weight: bold; cursor: pointer; transition: all 0.3s ease;
+        
+        /* 苹果原汁原味胶囊设计 */
+        .apple-pills-wrapper { width: 100%; display: flex; justify-content: center; margin-top: 15px; }
+        .apple-pills { 
+            display: inline-flex; align-items: center; background: #1C1C1E; 
+            padding: 4px; border-radius: 40px; 
+            max-width: 100%; overflow-x: auto; scrollbar-width: none;
+            box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
         }
-        .apple-pills .pill.active { background: #fff; color: #000; }
-        .apple-pills .pill:hover:not(.active) { background: #555; color: #fff; }
+        .apple-pills::-webkit-scrollbar { display: none; }
+        .apple-pills .pill { 
+            background: transparent; color: #A1A1A6; border: none; 
+            padding: 8px 24px; border-radius: 40px; font-size: 13px; font-weight: 600; 
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); 
+            white-space: nowrap; flex-shrink: 0;
+        }
+        .apple-pills .pill.active { 
+            background: #FFFFFF; color: #000000; box-shadow: 0 2px 8px rgba(0,0,0,0.2); 
+        }
         /* ============================================== */
 
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
@@ -119,7 +133,7 @@
         .swisse-card { flex-shrink: 0; display: flex; flex-direction: column; gap: 15px; scroll-snap-align: start; }
         .swisse-card-landscape { width: calc(45vh * 16 / 9); }
         .swisse-card-portrait { width: calc(45vh * 3 / 4); }
-        .swisse-card-img { width: 100%; height: 45vh; border-radius: 20px; overflow: hidden; position: relative; background: #111; }
+        .swisse-card-img { width: 100%; height: 45vh; border-radius: 24px; overflow: hidden; position: relative; background: #111; }
         .swisse-card-img img { width: 100%; height: 100%; object-fit: cover; }
         .swisse-card-text { font-size: 14px; color: var(--text-gray); padding: 0 5px; text-align: justify; }
 
@@ -148,12 +162,14 @@
             /* 适配苹果风堆叠排版移动端 */
             .stacked-layout { gap: 25px; }
             .stacked-layout .carousel-container, .apple-carousel-container { height: 35vh; }
-            .apple-pills .pill { padding: 5px 15px; font-size: 12px; }
+            .apple-pills .pill { padding: 6px 16px; font-size: 12px; }
 
-            .carousel-container { height: 45vh; }
+            .carousel-container { height: 45vh; border-radius: 20px; }
+            .apple-carousel-container { border-radius: 20px; }
+            
             .swisse-card-landscape { width: calc(40vh * 16 / 9); }
             .swisse-card-portrait { width: calc(40vh * 3 / 4); }
-            .swisse-card-img { height: 40vh; }
+            .swisse-card-img { height: 40vh; border-radius: 20px; }
             .swisse-card-text { font-size: 13px !important; line-height: 1.6 !important; }
             .swisse-card-text b { font-size: 13px !important; color: var(--text-white); }
             .swisse-swipe-hint { display: block; text-align: center; font-size: 12px; color: var(--text-gray); padding: 10px 0 20px; margin-top: -10px; font-weight: 600; }
@@ -193,7 +209,7 @@
             </div>
             <div class="carousel-container" data-gallery="pg-1">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img src="pr1.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/ZRBSZMPS/piao-rou1.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="pr1.png" data-fallback="https://i.postimg.cc/ZRBSZMPS/piao-rou1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="carousel-slide"><img class="lazy-img" data-src="pr2.png" data-fallback="https://i.postimg.cc/jdrb0vL6/piao-rou2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
@@ -214,11 +230,13 @@
                         <div class="carousel-slide"><img class="lazy-img" data-src="pr7.png" data-fallback="https://i.postimg.cc/VsqhMwNP/piao-rou7.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     </div>
                 </div>
-                <div class="apple-pills">
-                    <button class="pill active">1</button>
-                    <button class="pill">2</button>
-                    <button class="pill">3</button>
-                    <button class="pill">4</button>
+                <div class="apple-pills-wrapper">
+                    <div class="apple-pills">
+                        <button class="pill active">选项 1</button>
+                        <button class="pill">选项 2</button>
+                        <button class="pill">选项 3</button>
+                        <button class="pill">选项 4</button>
+                    </div>
                 </div>
             </div>
 
@@ -231,12 +249,14 @@
                 <div class="apple-carousel-container" data-gallery="pg-3">
                     <div class="carousel-slides">
                         <div class="carousel-slide"><img class="lazy-img" data-src="pr6.png" data-fallback="https://i.postimg.cc/RZV24Y9d/piao-rou6.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                        <div class="carousel-slide"><img class="lazy-img" data-src="pr8.jpg"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                        <div class="carousel-slide"><img class="lazy-img" data-src="pr8.jpg" data-fallback=""><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     </div>
                 </div>
-                <div class="apple-pills">
-                    <button class="pill active">1</button>
-                    <button class="pill">2</button>
+                <div class="apple-pills-wrapper">
+                    <div class="apple-pills">
+                        <button class="pill active">选项 1</button>
+                        <button class="pill">选项 2</button>
+                    </div>
                 </div>
             </div>
 
@@ -260,7 +280,7 @@
             <div class="swisse-header"><p class="tag-line">LIFESTYLE & SOCIAL</p><h2 class="brand-h">斯维诗</h2></div>
             <div class="swisse-scroll-track" data-gallery="swisse">
                 <div class="swisse-card swisse-card-landscape">
-                    <div class="swisse-card-img"><img src="sws1.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="swisse-card-img"><img class="lazy-img" data-src="sws1.png" data-fallback="https://i.postimg.cc/9Q1GGx6D/si-wei-shi2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="swisse-card-text"><b>保健品=老登? NO!</b> 围绕时尚健康新叙事，借势三八节发起「万物皆可斯维诗」小红书全名共创，打破刻板印象。</div>
                 </div>
                 <div class="swisse-card swisse-card-portrait">
@@ -292,9 +312,9 @@
             </div>
             <div class="carousel-container" data-gallery="biostime">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img src="hsy1.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/NMBryRMH/he-sheng-yuan2.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="hsy1.png" data-fallback="https://i.postimg.cc/NMBryRMH/he-sheng-yuan2.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                     <div class="carousel-slide"><img class="lazy-img" data-src="hsy2.png" data-fallback="https://i.postimg.cc/G2KTv989/he-sheng-yuan1.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
-                    <div class="carousel-slide"><img class="lazy-img" data-src="hsy3.jpg"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="hsy3.jpg" data-fallback=""><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
                 <button class="carousel-btn prev">◀</button><button class="carousel-btn next">▶</button>
                 <div class="carousel-dots"></div>
@@ -306,7 +326,7 @@
         <div class="content-grid img-left">
             <div class="carousel-container" data-gallery="nongfu">
                 <div class="carousel-slides">
-                    <div class="carousel-slide"><img src="nfsq.png" onerror="this.onerror=null; this.src='https://i.postimg.cc/8z7dDdJN/nong-fu-shan-quan.png';"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
+                    <div class="carousel-slide"><img class="lazy-img" data-src="nfsq.png" data-fallback="https://i.postimg.cc/8z7dDdJN/nong-fu-shan-quan.png"><div class="hover-overlay"><button class="view-detail-btn">查看大图</button></div></div>
                 </div>
             </div>
             <div class="project-text">
@@ -330,6 +350,7 @@
     </div>
 
     <script>
+        // 终极版懒加载：1.5秒赛跑机制，双通道容错保障
         function initLazyLoad() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(en => {
@@ -338,23 +359,37 @@
                         const realSrc = img.getAttribute('data-src');
                         const fallbackSrc = img.getAttribute('data-fallback');
                         if (realSrc) {
-                            img.src = realSrc;
-                            img.onload = () => img.classList.add('loaded');
+                            let isLoaded = false;
+                            img.onload = () => { isLoaded = true; img.classList.add('loaded'); };
                             img.onerror = () => {
-                                if (fallbackSrc && img.src.indexOf(fallbackSrc) === -1) {
+                                if (!isLoaded && fallbackSrc && img.src.indexOf(fallbackSrc) === -1) {
                                     img.src = fallbackSrc;
                                 }
                                 img.classList.add('loaded'); 
                             };
+                            
+                            // 先尝试加载主链接
+                            img.src = realSrc;
+                            
+                            // 智能并发判定：如果1.5秒后主图还没动静，瞬间切换副通道！
+                            if (fallbackSrc) {
+                                setTimeout(() => {
+                                    if (!isLoaded) {
+                                        img.src = fallbackSrc;
+                                    }
+                                }, 1500);
+                            }
+                            // 3秒无条件结束模糊
                             setTimeout(() => img.classList.add('loaded'), 3000);
                         }
                         obs.unobserve(img);
                     }
                 });
-            }, {rootMargin: "500px"});
+            }, {rootMargin: "600px"}); // 扩大预加载视野
             document.querySelectorAll('.lazy-img').forEach(img => obs.observe(img));
         }
 
+        // 常用的底部圆点式滑动
         function initCarousels() {
             document.querySelectorAll('.carousel-container').forEach(con => {
                 const slides = con.querySelector('.carousel-slides');
@@ -389,7 +424,7 @@
             });
         }
 
-        // 全新的苹果风滑块专属逻辑
+        // 苹果胶囊 UI 专属滑动逻辑
         function initAppleCarousels() {
             document.querySelectorAll('.apple-gallery-wrapper').forEach(wrapper => {
                 const slides = wrapper.querySelector('.carousel-slides');
@@ -400,12 +435,17 @@
 
                 const update = () => {
                     slides.style.transform = `translateX(-${idx * 100}%)`;
-                    pills.forEach((pill, i) => pill.classList.toggle('active', i === idx));
+                    pills.forEach((pill, i) => {
+                        pill.classList.toggle('active', i === idx);
+                        // 当胶囊文字较多产生溢出时，保持当前选中胶囊在视口中心
+                        if (i === idx) pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    });
                 };
 
+                // 4.5秒自动缓动轮播
                 const startAutoPlay = () => {
                     stopAutoPlay();
-                    autoPlayTimer = setInterval(() => { idx = (idx + 1) % total; update(); }, 4500); // 4.5秒平缓轮播
+                    autoPlayTimer = setInterval(() => { idx = (idx + 1) % total; update(); }, 4500); 
                 };
                 const stopAutoPlay = () => clearInterval(autoPlayTimer);
 
@@ -429,10 +469,11 @@
                 wrapper.addEventListener('mouseenter', stopAutoPlay);
                 wrapper.addEventListener('mouseleave', startAutoPlay);
 
-                startAutoPlay(); // 启动
+                startAutoPlay();
             });
         }
 
+        // 灯箱全屏大图查看
         function initGalleryLightbox() {
             const lb = document.getElementById('lbOverlay');
             const lbImg = document.getElementById('lbImg');
@@ -496,7 +537,10 @@
                 console.warn("外部动画库加载被拦截，已自动启动备用显示方案");
             }
 
-            initLazyLoad(); initCarousels(); initAppleCarousels(); initGalleryLightbox();
+            initLazyLoad(); 
+            initCarousels(); 
+            initAppleCarousels(); 
+            initGalleryLightbox();
             createWatermark('Sukie作品，严禁外传');
             document.addEventListener('contextmenu', e => e.preventDefault());
         };
