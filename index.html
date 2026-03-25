@@ -69,7 +69,7 @@
 
         .carousel-container {
             position: relative; width: 100%; height: 70vh; overflow: hidden; 
-            border-radius: 24px; /* 统一软切角 */
+            border-radius: 24px; 
             background: #111; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .carousel-slides { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease; }
@@ -101,11 +101,10 @@
         .apple-gallery-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; }
         .apple-carousel-container {
             position: relative; width: 100%; height: 60vh; overflow: hidden; 
-            border-radius: 24px; /* 统一软切角 */
+            border-radius: 24px; 
             background: #111; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         
-        /* 苹果原汁原味胶囊设计 */
         .apple-pills-wrapper { width: 100%; display: flex; justify-content: center; margin-top: 15px; }
         .apple-pills { 
             display: inline-flex; align-items: center; background: #1C1C1E; 
@@ -123,7 +122,6 @@
         .apple-pills .pill.active { 
             background: #FFFFFF; color: #000000; box-shadow: 0 2px 8px rgba(0,0,0,0.2); 
         }
-        /* ============================================== */
 
         .swisse-wrapper { z-index: 1; position: relative; width: 100%; }
         .swisse-scroll-track {
@@ -159,7 +157,6 @@
             .content-grid { display: flex; flex-direction: column; gap: 20px; }
             .content-grid.img-left { flex-direction: column-reverse; }
             
-            /* 适配苹果风堆叠排版移动端 */
             .stacked-layout { gap: 25px; }
             .stacked-layout .carousel-container, .apple-carousel-container { height: 35vh; }
             .apple-pills .pill { padding: 6px 16px; font-size: 12px; }
@@ -232,10 +229,10 @@
                 </div>
                 <div class="apple-pills-wrapper">
                     <div class="apple-pills">
-                        <button class="pill active">选项 1</button>
-                        <button class="pill">选项 2</button>
-                        <button class="pill">选项 3</button>
-                        <button class="pill">选项 4</button>
+                        <button class="pill active">高考营销</button>
+                        <button class="pill">高考纪录片</button>
+                        <button class="pill">吉尼斯挑战事件</button>
+                        <button class="pill">品牌30周年</button>
                     </div>
                 </div>
             </div>
@@ -254,8 +251,8 @@
                 </div>
                 <div class="apple-pills-wrapper">
                     <div class="apple-pills">
-                        <button class="pill active">选项 1</button>
-                        <button class="pill">选项 2</button>
+                        <button class="pill active">无障碍公益</button>
+                        <button class="pill">山区儿童公益</button>
                     </div>
                 </div>
             </div>
@@ -350,7 +347,6 @@
     </div>
 
     <script>
-        // 终极版懒加载：1.5秒赛跑机制，双通道容错保障
         function initLazyLoad() {
             const obs = new IntersectionObserver((entries) => {
                 entries.forEach(en => {
@@ -367,38 +363,28 @@
                                 }
                                 img.classList.add('loaded'); 
                             };
-                            
-                            // 先尝试加载主链接
                             img.src = realSrc;
-                            
-                            // 智能并发判定：如果1.5秒后主图还没动静，瞬间切换副通道！
                             if (fallbackSrc) {
                                 setTimeout(() => {
-                                    if (!isLoaded) {
-                                        img.src = fallbackSrc;
-                                    }
+                                    if (!isLoaded) img.src = fallbackSrc;
                                 }, 1500);
                             }
-                            // 3秒无条件结束模糊
                             setTimeout(() => img.classList.add('loaded'), 3000);
                         }
                         obs.unobserve(img);
                     }
                 });
-            }, {rootMargin: "600px"}); // 扩大预加载视野
+            }, {rootMargin: "600px"});
             document.querySelectorAll('.lazy-img').forEach(img => obs.observe(img));
         }
 
-        // 常用的底部圆点式滑动
         function initCarousels() {
             document.querySelectorAll('.carousel-container').forEach(con => {
                 const slides = con.querySelector('.carousel-slides');
                 const total = slides.children.length;
                 const dotsCon = con.querySelector('.carousel-dots');
                 let idx = 0;
-                
                 if (total <= 1) return;
-                
                 if (dotsCon) {
                     for(let i=0; i<total; i++) {
                         const dot = document.createElement('div');
@@ -406,15 +392,12 @@
                         dotsCon.appendChild(dot);
                     }
                 }
-
                 const update = () => {
                     slides.style.transform = `translateX(-${idx*100}%)`;
                     if (dotsCon) dotsCon.querySelectorAll('.dot').forEach((d,i) => d.className = i===idx?'dot active':'dot');
                 };
-
                 con.querySelector('.prev')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx-1+total)%total; update(); });
                 con.querySelector('.next')?.addEventListener('click', (e) => { e.stopPropagation(); idx=(idx+1)%total; update(); });
-                
                 let sX = 0;
                 con.addEventListener('touchstart', (e) => sX = e.touches[0].clientX, {passive:true});
                 con.addEventListener('touchend', (e) => {
@@ -424,11 +407,11 @@
             });
         }
 
-        // 苹果胶囊 UI 专属滑动逻辑
         function initAppleCarousels() {
             document.querySelectorAll('.apple-gallery-wrapper').forEach(wrapper => {
                 const slides = wrapper.querySelector('.carousel-slides');
                 const total = slides.children.length;
+                const pillsWrapper = wrapper.querySelector('.apple-pills'); 
                 const pills = wrapper.querySelectorAll('.apple-pills .pill');
                 let idx = 0;
                 let autoPlayTimer;
@@ -437,12 +420,14 @@
                     slides.style.transform = `translateX(-${idx * 100}%)`;
                     pills.forEach((pill, i) => {
                         pill.classList.toggle('active', i === idx);
-                        // 当胶囊文字较多产生溢出时，保持当前选中胶囊在视口中心
-                        if (i === idx) pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        // 彻底解决 Bug 1 页面乱跳：仅对水平滑动容器本身做精确滑动，彻底弃用 scrollIntoView
+                        if (i === idx && pillsWrapper) {
+                            const scrollPos = pill.offsetLeft - (pillsWrapper.clientWidth / 2) + (pill.clientWidth / 2);
+                            pillsWrapper.scrollTo({ left: scrollPos, behavior: 'smooth' });
+                        }
                     });
                 };
 
-                // 4.5秒自动缓动轮播
                 const startAutoPlay = () => {
                     stopAutoPlay();
                     autoPlayTimer = setInterval(() => { idx = (idx + 1) % total; update(); }, 4500); 
@@ -473,7 +458,6 @@
             });
         }
 
-        // 灯箱全屏大图查看
         function initGalleryLightbox() {
             const lb = document.getElementById('lbOverlay');
             const lbImg = document.getElementById('lbImg');
@@ -525,7 +509,6 @@
             try {
                 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                     gsap.registerPlugin(ScrollTrigger);
-                    // 确保新的排版类也能触发进入动画
                     gsap.utils.toArray('section').forEach(sec => {
                         gsap.from(sec.querySelectorAll('.project-text, .carousel-container, .swisse-wrapper, .stacked-text, .apple-gallery-wrapper'), {
                             scrollTrigger: { trigger: sec, start: "top 85%" },
